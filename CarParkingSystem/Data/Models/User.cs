@@ -10,5 +10,6 @@ namespace CarParkingSystem.Data.Models
 
         public string CarModel { get; set; }
 
+        public decimal Balance { get; set; } = 50;
     }
 }

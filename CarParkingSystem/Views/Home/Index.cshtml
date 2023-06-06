@@ -2,7 +2,111 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero">
+    @*<img src="https://images.pexels.com/photos/2612855/pexels-photo-2612855.jpeg?cs=srgb&dl=pexels-jimmy-chan-2612855.jpg&fm=jpg" />*@
+    <h1>CarPark Solutions</h1>
+    <h2>Quick, reliable, effective.</h2>
+    <a class="reserve">Reserve now</a>
 </div>
+<div class="info">
+    <h2>Who are we?</h2>
+    <div class="description">
+        <p>CarPark Solutions: Your hassle-free parking solution. We offer secure and convenient parking for cars, motorcycles, and bicycles. With our user-friendly app, find and reserve parking effortlessly. Our well-lit facilities are equipped with advanced security measures for peace of mind. Choose from short or long-term options, and enjoy additional services like car washes and valet parking. Trust CarPark Solutions for a stress-free parking experience.</p>
+        <img src="https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+    </div>
+</div>
+<div class="stats">
+       <p>10000+ satisfied customers</p>
+       <p>30 cities</p>
+       <p>4 continents</p>
+</div>
+
+
+
+<style>
+    
+    @@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+    html {
+        font-family: 'Roboto Condensed';
+    }
+    .stats{
+        height: 30vh;
+        background-color: #343538;
+        display:flex;
+        align-items: center;
+        justify-content:space-around;
+        
+    }
+    .stats>p{
+        font-size:3rem;
+        color:coral;
+        font-weight:700;
+    }
+    .info{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        font-family:'Roboto Condensed';
+        padding:60px 80px;
+    }
+    .info>h2{
+        color: #343538;
+        font-size:5rem;
+    }
+    .description{
+        display:flex;
+        margin-top:50px;
+        justify-content:space-evenly;
+    }
+    .description>p{
+        color: #343538;
+        font-size:1.8rem;
+        width:50%;
+        align-self:start;
+        font-weight:300;
+    }
+    .description>img{
+        width:30%;
+        object-fit:contain;
+    }
+    .hero{
+        position:relative;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/2612855/pexels-photo-2612855.jpeg?cs=srgb&dl=pexels-jimmy-chan-2612855.jpg&fm=jpg');
+        background-position: 0 120%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        height: 600px;
+        width: 100%;
+        padding-left:200px;
+    }
+    div.hero>h1{
+        padding-top: 100px;
+        color:white;
+        font-family:'Roboto Condensed';
+        font-size:7.5rem;
+    }
+    div.hero>h2{
+        color: white;
+        font-family: 'Roboto Condensed';
+        font-size: 2.5rem;
+    }
+
+    body > div > a {
+        margin-top:50px;
+        display:inline-block;
+        text-decoration:none;
+        font-family: 'Roboto Condensed';
+        font-size: 1.5rem;
+        color: white;
+        border: 2px solid white;
+        border-radius: 32px;
+        padding:6px 16px;
+    }
+    .reserve:hover{
+        background-color:white;
+        color:black;
+        transition: linear 0.1s;
+    }
+</style>

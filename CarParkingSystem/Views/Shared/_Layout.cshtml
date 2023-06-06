@@ -22,24 +22,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    @*<div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            
         </main>
-    </div>
-
+    </div>*@
+    @RenderBody()
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - CarParkingSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - CarParkingSystem
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -48,3 +46,9 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    .mb-3 {
+        margin:0 !important;
+    }
+</style>
