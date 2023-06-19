@@ -1,0 +1,108 @@
+﻿@model AccountViewModel
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" id="main">
+
+                    <h2 class="text-uppercase text-center mb-5">Your information</h2>
+                    <form id="changeInformation" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <label asp-for="@Model.Email">Email</label>
+                    @if (TempData["EmailChanged"] != null)
+                    {
+                        <p class="message-success"> @TempData["EmailChanged"] </p>
+                    }
+                        <div class="form-outline mb-5 email">
+                            <input id="form3Example3cg" value="@Model.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email" name="Email" style="border-color:orange" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            <input type="submit" class="btn btn-dark" asp-action="ChangeEmail" asp-controller="User" value="Change Email">
+                        </div>
+                    <label asp-for="@Model.OldPassword">Old Password</label>
+                    @if (TempData["PasswordChanged"] != null)
+                    {
+                        <p class="message-success"> @TempData["PasswordChanged"] </p>
+                    }
+                    <div class="form-outline mb-4 passwordChange">
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.OldPassword" style="border-color:orange" />
+                            <span asp-validation-for="@Model.OldPassword" class="text-danger"></span>
+                        <label>New Password</label>
+                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.NewPassword" style="border-color:orange" />
+                        <span asp-validation-for="@Model.NewPassword" class="text-danger"></span>
+                        <label>New Password Repeat</label>
+                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmNewPassword" style="border-color:orange" />
+                        <span asp-validation-for="@Model.ConfirmNewPassword" class="text-danger"></span>
+                        <input type="submit" class="btn btn-dark btn-changePassword" asp-action="ChangePassword" asp-controller="User" value="Change Password">
+                        </div>
+                    <label asp-for="@Model.CarMake">Car Make</label>
+                    @if (TempData["CarInfoChanged"] != null)
+                    {
+                        <p class="message-success"> @TempData["CarInfoChanged"] </p>
+                    }
+                        <div class="form-outline mb-4">
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarMake" style="border-color:orange" />
+                            <span asp-validation-for="@Model.CarMake" class="text-danger"></span>
+                        </div>
+                    <label asp-for="@Model.CarModel">Car Model</label>
+
+                        <div class="form-outline mb-4">
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarModel" style="border-color:orange" />
+                            <span asp-validation-for="@Model.CarModel" class="text-danger"></span>
+                        </div>
+                    <label asp-for="@Model.CarNumber">Car Number</label>
+
+                        <div class="form-outline mb-4 carinfo">
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarNumber" style="border-color:orange" />
+                            <span asp-validation-for="@Model.CarNumber" class="text-danger"></span>
+                        <input type="submit" class="btn btn-dark" asp-action="ChangeCarInfo" asp-controller="User" value="Change Car Information">
+                        </div>
+
+                    <input type ="submit" class="btn btn-danger deleteaccount" asp-action="DeleteAccount" asp-controller="User" value="Delete Account"/>
+                    </form>
+                    @if (TempData["Message"] != null)
+                    {
+                        <script type="text/javascript">
+                            window.onload = function () {
+                                alert('@TempData["Message"]');
+                            };
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .deleteaccount{
+       margin-bottom:20px;
+    }
+    .message-success{
+        color:lawngreen;
+    }
+
+    .btn-changePassword{
+        align-self:center;
+    }
+    /*button{
+        width:30%;
+    }*/
+    .form-outline{
+        display:flex;
+        justify-content:space-between;
+        gap:20px;
+        align-items:center;
+    }
+    .col-xl-6{
+        width:100% !important;
+        align-items:center;
+    }
+    .passwordChange{
+        flex-direction:column;
+        align-items:start;
+    }
+    .carinfo, .email{
+        flex-direction: column;
+    }
+    .passwordChange>button{
+        align-self:center;
+    }
+</style>                         

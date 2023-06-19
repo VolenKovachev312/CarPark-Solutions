@@ -1,6 +1,9 @@
+using CarParkingSystem.Contracts;
 using CarParkingSystem.Data;
 using CarParkingSystem.Data.Models;
+using CarParkingSystem.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarParkingSystem
@@ -17,12 +20,34 @@ namespace CarParkingSystem
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services
+                .AddAntiforgery()
+                .AddDefaultIdentity<User>(options => 
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase= false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
+            builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromMinutes(1);
+            });
+
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
+            
 
             var app = builder.Build();
 
+            AppBuilderExtensions.InitializeDatabase(app);
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

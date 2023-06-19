@@ -6,22 +6,43 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+   @* <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    </li>*@
+     <li class="nav-item" >
+            <div class="dropdown" style="margin-right:100px;">
+                <button class="btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png" style="width: 2.5rem; height: 2.5rem;">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    @if(!SignInManager.IsSignedIn(User))
+                    {
+                    <li><center><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a></center></li>
+                    <div class="dropdown-divider"></div>
+                    <li><center><a class="nav-link text-dark" asp-area=""  asp-controller="User" asp-action="Register">Register</a></center></li>
+                    }
+                    else
+                    {
+                        <form class="form-inline" asp-area=""  asp-controller="User" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)">
+                        <center> <button type="submit" class="nav-link btn btn-link text-dark">Account</button></center>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <form class="form-inline" asp-area=""  asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
+                        <center> <button type="submit" class="nav-link btn btn-link text-dark">Logout</button></center>
+                        </form>
+                    }
+                    
+                </ul>
+            </div>
+        </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
     </li>
 }
 </ul>
