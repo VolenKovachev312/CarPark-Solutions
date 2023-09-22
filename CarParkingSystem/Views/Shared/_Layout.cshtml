@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarParkingSystem</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -18,8 +18,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        
+                    <ul class="navbar-nav flex-grow-1 ms-auto">
+                        <li><a id="reserve" class="nav-link text-dark" asp-area="" asp-controller="Locations" asp-action="Index">Reserve</a></></li>
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -45,7 +46,31 @@
 </html>
 
 <style>
-    .mb-3 {
+    .mb-3 
+    {
         margin:0 !important;
+    }
+
+    div > ul
+    {
+        margin-right:0;
+        justify-content: end
+    }
+
+    body > header > nav  > div > div
+    {
+        gap:3em;
+    }
+
+    a#reserve
+    {
+        border:solid 1px black;
+        border-radius:32px;
+        padding:6px 12px;
+        font-size: 18px;
+    }
+    a#reserve:hover
+    {
+        background-color:lightgray;
     }
 </style>

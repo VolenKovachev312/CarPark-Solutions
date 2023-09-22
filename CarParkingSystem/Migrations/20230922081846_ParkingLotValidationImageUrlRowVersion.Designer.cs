@@ -4,6 +4,7 @@ using CarParkingSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarParkingSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230922081846_ParkingLotValidationImageUrlRowVersion")]
+    partial class ParkingLotValidationImageUrlRowVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,20 +46,13 @@ namespace CarParkingSystem.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasMaxLength(197)
-                        .HasColumnType("nvarchar(197)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
-
-                    b.Property<decimal>("x")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("y")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

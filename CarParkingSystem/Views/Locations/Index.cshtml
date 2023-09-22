@@ -1,0 +1,64 @@
+﻿@using CarParkingSystem.Models;
+@model IEnumerable<ParkingLotViewModel>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<link rel="stylesheet" href="~/css/locations.css" />
+
+@*<script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+        key: "AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw",
+        v: "weekly",
+
+    });*@
+@*</script>*@
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw&callback=initMap">
+</script>
+<h1 id="title">Parking Lot Locations</h1>
+<div id="map">
+    <script>
+
+        function initMap() {
+            //const { Map } = await google.maps.importLibrary("maps");
+
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+</script>
+
+</div>
+
+
+
+
+@foreach (var model in Model)
+{
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="..." class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p cla ss="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p clas s="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@300;400;700&family=Work+Sans:wght@600&display=swap');
+
+
+    h1#title {
+        font-family: 'Roboto Condensed';
+        font-size: 5em;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom:25px;
+    }
+
+</style>
