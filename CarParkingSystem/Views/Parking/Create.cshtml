@@ -1,0 +1,160 @@
+﻿@model ParkingLotViewModel
+<div id="main">
+    <div id="form">
+        <form method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input class="form-control" id="name" asp-for="@Model.Name">
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Latitude</label>
+                <input class="form-control" id="latitude" asp-for="@Model.Latitude">
+                <span asp-validation-for="@Model.Latitude" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Longitude</label>
+                <input class="form-control" id="longitude" asp-for="@Model.Longitude">
+                <span asp-validation-for="@Model.Longitude" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input class="form-control" id="address" asp-for="@Model.Address">
+                <span asp-validation-for="@Model.Address" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Capacity</label>
+                <input class="form-control" id="capacity" asp-for="@Model.Capacity">
+                <span asp-validation-for="@Model.Capacity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hourly Rate</label>
+                <input class="form-control" id="hourly-rate" asp-for="@Model.HourlyRate">
+                <span asp-validation-for="@Model.HourlyRate" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image Url</label>
+                <input class="form-control" id="image-url" asp-for="@Model.ImageUrl">
+                <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Starting Hour</label>
+                <input class="form-control" type="time" asp-for="@Model.OpeningHour" id="opening-time" value="10:00:00" onchange="onTimeChange(this)" />
+                <span asp-validation-for="@Model.OpeningHour" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Closing Hour</label>
+                <input class="form-control" type="time" asp-for="@Model.ClosingHour" id="closing-time" value="10:00:00" onchange="onTimeChange(this)" />
+                <span asp-validation-for="@Model.ClosingHour" class="text-danger"></span>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="@Model.IsNonStop" id="flexCheckDefault" onclick="checkChange(this)">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Parking is always open
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit" asp-action="Create" asp-controller="Parking">Submit</button>
+        </form>
+    </div>
+    <div>
+        <div id="map">
+        </div>
+        <div id="map-description" class="form-text">Click on the map to set coordinates.</div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw&callback=initMap">
+    </script>
+    <script>
+        function checkChange(ckType) {
+            var checked = document.getElementById(ckType.id);
+            var startingInput = document.getElementById('opening-time');
+            var closingInput = document.getElementById('closing-time');
+            if (checked.checked) {
+                startingInput.disabled = true;
+                closingInput.disabled = true;
+            }
+            else {
+                startingInput.disabled = false;
+                closingInput.disabled = false;
+            }
+        }
+    </script>
+    <script>
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 42.713552, lng: 25.115340 },
+                zoom: 6,
+            });
+            var marker;
+            google.maps.event.addListener(map, 'click', function (event) {
+                placeMarker(event.latLng);
+                var latitude = event.latLng.lat();
+                var longitude = event.latLng.lng();
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+                fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw')
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('address').value = data.results[0].formatted_address;
+                    })
+                    .catch((e) => window.alert("Geocoder failed due to: " + e));
+            });
+
+
+            function placeMarker(location) {
+
+                if (marker == null) {
+                    marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                    });
+                }
+                else {
+                    marker.setPosition(location);
+                }
+
+            }
+
+        }
+    </script>
+}
+
+<style>
+    div#main {
+        display: flex;
+        flex-direction: row;
+        gap: 10%;
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    div.form-check {
+        margin-top: 20px;
+    }
+
+    div#map {
+        width: 600px;
+        height: 400px;
+    }
+
+
+    .form-control {
+        width: 500px;
+    }
+
+    button#submit {
+        margin-top: 25px;
+    }
+
+    input#latitude, input#longitude, input#address {
+        pointer-events: none;
+        background-color: lightgray;
+    }
+</style>

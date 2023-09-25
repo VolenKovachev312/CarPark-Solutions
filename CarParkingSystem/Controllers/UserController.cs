@@ -32,6 +32,21 @@ namespace CarParkingSystem.Controllers
             userService = _userService;
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> DemoAdmin()
+        {
+            var user = await userManager.FindByNameAsync("testadmin@gmail.com");
+            var result = await signInManager.PasswordSignInAsync(user, "testpassword", false, false);
+
+            return RedirectToAction("Create","Parking");
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> DemoUser()
+        {
+            var user = await userManager.FindByNameAsync("testuser@gmail.com");
+            var result = await signInManager.PasswordSignInAsync(user, "testpassword", false, false);
+            return RedirectToAction("Index", "Home");
+        }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
@@ -82,7 +97,7 @@ namespace CarParkingSystem.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
+             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("Index", "Home");
             }

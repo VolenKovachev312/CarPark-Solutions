@@ -1,9 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-h1 {
+html {
     font-family: 'Roboto Condensed';
 }
-#map{
-    height:800px;
-    width:100%;
+#map {
+    height: 800px;
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
 }

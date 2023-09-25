@@ -41,6 +41,7 @@ namespace CarParkingSystem
             });
 
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IParkingService, ParkingService>();
 
             builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
             

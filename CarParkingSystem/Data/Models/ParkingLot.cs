@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static CarParkingSystem.Constants.Constants.ParkingLot;
 
 namespace CarParkingSystem.Data.Models
@@ -9,14 +10,20 @@ namespace CarParkingSystem.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [StringLength(LocationLengthMax,MinimumLength =LocationLengthMin)]
-        public string Location { get; set; }
+        public string Name { get; set; }    
 
         [Required]
-        public decimal x { get; set; }
+        [Range(LatitudeMin,LatitudeMax)]
+        [Column(TypeName ="decimal(18,9)")]
+        public decimal Latitude { get; set; }
 
-        [Required] 
-        public decimal y { get;set; }
+        [Required]
+        [Range(LongitudeMin,LongitudeMax)]
+        [Column(TypeName = "decimal(18,9)")]
+        public decimal Longitude { get;set; }
+
+        [Required]
+        public string Address { get; set; }
 
         [Required]
         [Range(CapacityMin,CapacityMax)]
@@ -31,9 +38,22 @@ namespace CarParkingSystem.Data.Models
         public decimal HourlyRate { get; set; }
 
         [Required]
+        [Column(TypeName="TIME(7)")]
+        public TimeOnly OpeningHour { get; set; }
+
+        [Required]
+        [Column(TypeName = "TIME(7)")]
+        public TimeOnly ClosingHour { get; set; }
+
+        [Required]
+        public bool IsNonStop { get; set; }
+
+        [Required]
         [Url]
         public string ImageURL { get; set; }
 
+        [Required]
+        public bool isDeleted { get; set; } = false;
         //Concurrency check
         [Timestamp]
         public byte[] RowVersion { get; set; }

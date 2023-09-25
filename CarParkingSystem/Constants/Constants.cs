@@ -24,6 +24,12 @@ namespace CarParkingSystem.Constants
 
             public const double HourlyRateMax = double.MaxValue;
             public const double HourlyRateMin = 0;
+
+            public const double LatitudeMax = 90;
+            public const double LatitudeMin = -90;
+
+            public const double LongitudeMax = 180;
+            public const double LongitudeMin = -180;
         }
     }
 }

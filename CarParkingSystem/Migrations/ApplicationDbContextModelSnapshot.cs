@@ -28,11 +28,18 @@ namespace CarParkingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AvailableSpaces")
                         .HasColumnType("int");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
+
+                    b.Property<TimeSpan>("ClosingHour")
+                        .HasColumnType("TIME(7)");
 
                     b.Property<decimal>("HourlyRate")
                         .HasColumnType("decimal(18,2)");
@@ -41,10 +48,21 @@ namespace CarParkingSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
+                    b.Property<bool>("IsNonStop")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(18,9)");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(18,9)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(197)
-                        .HasColumnType("nvarchar(197)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("OpeningHour")
+                        .HasColumnType("TIME(7)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -52,11 +70,8 @@ namespace CarParkingSystem.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<decimal>("x")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("y")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

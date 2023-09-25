@@ -2,6 +2,7 @@
 {
     using CarParkingSystem.Contracts;
     using CarParkingSystem.Data;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Threading.Tasks;
@@ -9,7 +10,6 @@
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext context;
-
         public UserService(ApplicationDbContext _context)
         {
             context = _context;

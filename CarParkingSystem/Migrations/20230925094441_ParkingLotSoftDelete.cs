@@ -5,25 +5,25 @@
 namespace CarParkingSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class addBalanceToUser : Migration
+    public partial class ParkingLotSoftDelete : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "Balance",
-                table: "AspNetUsers",
-                type: "decimal(18,2)",
+            migrationBuilder.AddColumn<bool>(
+                name: "isDeleted",
+                table: "ParkingLots",
+                type: "bit",
                 nullable: false,
-                defaultValue: 0m);
+                defaultValue: false);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Balance",
-                table: "AspNetUsers");
+                name: "isDeleted",
+                table: "ParkingLots");
         }
     }
 }

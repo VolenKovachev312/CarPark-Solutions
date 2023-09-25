@@ -1,4 +1,8 @@
-﻿@{
+﻿@using CarParkingSystem.Data.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/index.css"/>
@@ -7,7 +11,16 @@
     @*<img src="https://images.pexels.com/photos/2612855/pexels-photo-2612855.jpeg?cs=srgb&dl=pexels-jimmy-chan-2612855.jpg&fm=jpg" />*@
     <h1>CarPark Solutions</h1>
     <h2>Quick, reliable, effective.</h2>
-    <a class="reserve">Reserve now</a>
+    <a class="reserve" asp-controller="Parking" asp-action="Index">Reserve now</a>
+    @if(User.IsInRole("User")||!SignInManager.IsSignedIn(User))
+    {
+        <a class="reserve" asp-controller="User" asp-action="DemoAdmin">Demo Admin</a>
+    }
+    @if (User.IsInRole("Admin") || !SignInManager.IsSignedIn(User))
+    {
+        <a class="reserve" asp-controller="User" asp-action="DemoUser">Demo User</a>
+    }
+
 </div>
 <div class="info">
     <h2>Who are we?</h2>
