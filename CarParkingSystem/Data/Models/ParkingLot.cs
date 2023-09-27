@@ -50,7 +50,7 @@ namespace CarParkingSystem.Data.Models
 
         [Required]
         [Url]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         [Required]
         public bool isDeleted { get; set; } = false;

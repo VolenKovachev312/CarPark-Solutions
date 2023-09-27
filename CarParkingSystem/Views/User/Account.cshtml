@@ -13,7 +13,7 @@
                         <p class="message-success"> @TempData["EmailChanged"] </p>
                     }
                         <div class="form-outline mb-5 email">
-                            <input id="form3Example3cg" value="@Model.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email" name="Email" style="border-color:orange" />
+                            <input id="form3Example3cg" value="@Model.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email" name="Email" />
                             <span asp-validation-for="@Model.Email" class="text-danger"></span>
                             <input type="submit" class="btn btn-dark" asp-action="ChangeEmail" asp-controller="User" value="Change Email">
                         </div>
@@ -23,13 +23,13 @@
                         <p class="message-success"> @TempData["PasswordChanged"] </p>
                     }
                     <div class="form-outline mb-4 passwordChange">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.OldPassword" style="border-color:orange" />
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.OldPassword"  />
                             <span asp-validation-for="@Model.OldPassword" class="text-danger"></span>
                         <label>New Password</label>
-                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.NewPassword" style="border-color:orange" />
+                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.NewPassword"  />
                         <span asp-validation-for="@Model.NewPassword" class="text-danger"></span>
                         <label>New Password Repeat</label>
-                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmNewPassword" style="border-color:orange" />
+                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmNewPassword"  />
                         <span asp-validation-for="@Model.ConfirmNewPassword" class="text-danger"></span>
                         <input type="submit" class="btn btn-dark btn-changePassword" asp-action="ChangePassword" asp-controller="User" value="Change Password">
                         </div>
@@ -39,19 +39,19 @@
                         <p class="message-success"> @TempData["CarInfoChanged"] </p>
                     }
                         <div class="form-outline mb-4">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarMake" style="border-color:orange" />
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarMake"  />
                             <span asp-validation-for="@Model.CarMake" class="text-danger"></span>
                         </div>
                     <label asp-for="@Model.CarModel">Car Model</label>
 
                         <div class="form-outline mb-4">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarModel" style="border-color:orange" />
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarModel"  />
                             <span asp-validation-for="@Model.CarModel" class="text-danger"></span>
                         </div>
                     <label asp-for="@Model.CarNumber">Car Number</label>
 
                         <div class="form-outline mb-4 carinfo">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarNumber" style="border-color:orange" />
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarNumber"  />
                             <span asp-validation-for="@Model.CarNumber" class="text-danger"></span>
                         <input type="submit" class="btn btn-dark" asp-action="ChangeCarInfo" asp-controller="User" value="Change Car Information">
                         </div>

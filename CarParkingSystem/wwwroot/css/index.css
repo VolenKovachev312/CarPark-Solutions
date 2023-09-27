@@ -3,7 +3,62 @@
 html {
     font-family: 'Roboto Condensed';
 }
+input {
+    border-radius: 32px !important;
+}
 
+div#search-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+button#search {
+    background-color: #343538;
+    padding: 6px 24px;
+    border: solid dodgerblue 1px;
+    border: solid #343538 1px;
+    border-radius: 32px;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+    button#search:hover, button#near-me:hover {
+        background-color: gray;
+        border: solid 1px gray;
+        transition: all ease-out 0.1s;
+    }
+
+button#near-me {
+    display: flex;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background-color: #343538;
+    padding: 6px 24px;
+    border: solid dodgerblue 1px;
+    border: solid #343538 1px;
+    border-radius: 32px;
+    font-size: 1.5em;
+    color: white;
+    font-weight: 500;
+}
+hr {
+    color: #343538;
+    border-color: #343538;
+    border: 2px solid #343538;
+}
+
+div#location-input {
+    width: 40%;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 100px;
+    padding: 20px;
+}
 .stats {
     height: 30vh;
     background-color: #343538;
@@ -24,6 +79,7 @@ html {
     align-items: center;
     font-family: 'Roboto Condensed';
     padding: 60px 80px;
+    background-color:ghostwhite;
 }
 
     .info > h2 {
@@ -92,3 +148,5 @@ body > div > a {
     color: black;
     transition: linear 0.1s;
 }
+
+

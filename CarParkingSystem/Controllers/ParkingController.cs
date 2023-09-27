@@ -56,5 +56,39 @@ namespace CarParkingSystem.Controllers
             }
             return RedirectToAction("Index","Parking");
         }
+
+        [HttpGet]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> Edit(string name)
+        {
+            ParkingLotViewModel model=new ParkingLotViewModel();
+            try
+            {
+                model = await parkingService.GetParkingLot(name);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("Name", e.Message);
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(string name, ParkingLotViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                await parkingService.EditParkingLotAsync(name,model);
+            }
+            catch(Exception e)
+            {
+
+            }
+            return View(model);
+        }
     }
 }

@@ -3,7 +3,7 @@
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;border-color:orange">
+                    <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
@@ -12,19 +12,19 @@
                                
                                 <div class="form-outline mb-4">
                                     <label asp-for="@Model.Email">Email</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.Email" style="border-color:orange" />
+                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.Email"  />
                                     <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label asp-for="@Model.Password">Password</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" style="border-color:orange" />
+                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password"  />
                                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" style="border-color:orange" />
+                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword"  />
                                     <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
                                 </div>
                                 <div class="d-flex justify-content-center">
@@ -32,7 +32,7 @@
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">
-                                    Already have an account? <a href="#!" class="fw-bold text-body" onclick="@("window.location.href='" + @Url.Action("Login", "User") + "'");"><u style="color:orange">Login here</u></a>
+                                    Already have an account? <a href="#!" class="fw-bold text-body" onclick="@("window.location.href='" + @Url.Action("Login", "User") + "'");"><u >Login here</u></a>
                                 </p>
 
                             </form>
