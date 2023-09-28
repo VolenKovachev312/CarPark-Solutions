@@ -39,7 +39,7 @@ namespace CarParkingSystem
             {
                 options.ValidationInterval = TimeSpan.FromMinutes(1);
             });
-
+            //builder.Services.AddCors();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IParkingService, ParkingService>();
 
@@ -47,7 +47,12 @@ namespace CarParkingSystem
             
 
             var app = builder.Build();
-
+            //app.UseCors(x => x
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .SetIsOriginAllowed(origin => true) // allow any origin
+            //        .WithOrigins("https://localhost:7232")); // Allow only this origin can also have multiple origins separated with comma
+                    //.AllowCredentials()); // allow credentials
             AppBuilderExtensions.InitializeDatabase(app);
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
