@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-
+<link rel="stylesheet" href="~/css/locations.css"/>
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
@@ -11,15 +11,15 @@
     </li>*@
      <li class="nav-item" >
             <div class="dropdown" style="margin-right:100px;">
-                <button class="btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png" style="width: 2.5rem; height: 2.5rem;">
+                <button class="" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="~/icons8-account-48.png" style="width:40px; height:40px;">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     @if(!SignInManager.IsSignedIn(User))
                     {
-                    <li><center><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a></center></li>
+                    <li><center><a class="nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a></center></li>
                     <div class="dropdown-divider"></div>
-                    <li><center><a class="nav-link text-dark" asp-area=""  asp-controller="User" asp-action="Register">Register</a></center></li>
+                    <li><center><a class="nav-link" asp-area=""  asp-controller="User" asp-action="Register">Register</a></center></li>
                     }
                     else
                     {
@@ -46,3 +46,19 @@ else
     </li>
 }
 </ul>
+<style>
+    body > header > nav > div > div > ul > li> a.nav-link
+    {
+        color: white !important;
+        font-family: 'Roboto Condensed';
+    }
+
+   button{
+       background-color:transparent;
+       border: 0px;
+   }
+   button:hover{
+       transition:all 0.2s ease-in;
+       transform:scale(1.1);
+   }
+</style>
