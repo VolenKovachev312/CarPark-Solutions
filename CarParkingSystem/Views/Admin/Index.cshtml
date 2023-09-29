@@ -1,0 +1,149 @@
+﻿@using CarParkingSystem.Models;
+@model IEnumerable<ParkingLotViewModel>;
+<div id="page">
+    <div id="locations">
+        @if(Model.Count()==0)
+        {
+            <h2>No parkings found!</h2>
+        }
+        @foreach (var parking in Model.Where(p=>p.Address.Contains(ViewBag.Search)||p.Name.Contains(ViewBag.Search)))
+        {
+            <div class="card-wrapper">
+            <div class="card-content">
+                    <img src="@parking.ImageUrl" alt="parking image">
+                    <div class="card-body">
+                    <h2>@parking.Name</h2>
+                        <h5 class="card-title">@parking.Address</h5>
+                        @if(parking.IsNonStop)
+                        {
+                        <p id="non-stop" class="card-text">24/7 Open</p>
+                            
+                        }
+                        else
+                        {
+                        <p class="card-text">@parking.OpeningHour - @parking.ClosingHour</p>
+                            @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
+                            {
+                                <p class="open">Open</p>
+                            }
+                            else
+                            {
+                                TimeSpan ts = new TimeSpan(24, 0, 0);
+                                TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                                string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                                output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                <p class="closed">@output</p>
+                            }
+                        }
+                    </div>
+            </div>
+            </div>
+
+        }
+    </div>
+    <div id="control-page">
+        <div id="search">
+            <form method="get" asp-action="Index" asp-controller="Admin">
+                <input id="search-bar" class="form-control" placeholder="Enter a parking name" name="search">
+                <button type="submit" id="search-button" >Search</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<script>
+    function filterLocations()
+    {
+        var input=document.getElementById('search-bar').value;
+        var inputKeywords=input.split(', ');
+        if(input!="")
+        {
+            var locations=document.getElementsByClassName('card-wrapper');
+            for(var location of locations){
+                var name=location.children[0].children[1].children[0].textContent
+                var address=location.children[0].children[1].children[1].textContent;
+                var combined=name+' '+address;
+                var keywords=combined.split(' ');
+                var isMatch=false;
+                for(var kw of keywords){
+                    console.log(kw);
+                    if(input.includes(kw))
+                    {
+                        console.log('here');
+
+                        isMatch=true;
+                        break;
+                    }
+                }
+                if(!isMatch)
+                {
+                }
+            }
+        }
+    }
+</script>
+<style>
+    form{
+        width: 100%;
+        gap:16px;
+        display:flex;
+    }
+    
+    button#search-button{
+        padding:8px 16px;
+        border-radius: 4px;
+        background-color: #343538;
+        color:white;
+    }
+    div#control-page{
+        width:30%;
+        margin-top:20px;
+    }
+    h2{
+        font-size:1.5em;
+    }
+    h5{
+        font-size:1em;
+    }
+    p{
+        font-size:1em;
+        margin-bottom:auto;
+    }
+    p#non-stop, p.open{
+        color: forestgreen;
+    }
+    p.closed{
+        color:red;
+    }
+    div.card-body{
+        height:10em;
+    }
+    div.card-content{
+        padding:0;
+        display:flex;
+        border-top: 1px solid #343538;
+        border-bottom: 1px solid #343538;
+        border-right: 1px solid #343538;
+    }
+    div.card-wrapper{
+        margin-bottom: 20px;
+        margin-top:20px;
+        padding-left: 10px;
+    }
+    
+    img{
+        width:30%;
+        object-fit:fill;
+    }
+    
+    div#page{
+        display:flex;
+        gap:10%;
+    }
+    div#locations{
+        width:50%;
+        overflow:hidden;
+        overflow-y:scroll;
+        height:calc(100vh - 118px);
+    }
+</style>

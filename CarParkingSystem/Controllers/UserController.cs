@@ -38,7 +38,7 @@ namespace CarParkingSystem.Controllers
             var user = await userManager.FindByNameAsync("testadmin@gmail.com");
             var result = await signInManager.PasswordSignInAsync(user, "testpassword", false, false);
 
-            return RedirectToAction("Create","Parking");
+            return RedirectToAction("Create", "Parking");
         }
         [AllowAnonymous]
         public async Task<IActionResult> DemoUser()

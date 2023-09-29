@@ -1,4 +1,5 @@
-﻿@model ParkingLotViewModel
+﻿@using CarParkingSystem.Models;
+@model ParkingLotViewModel
 <div id="main">
     <div id="form">
         <form method="post">
@@ -63,8 +64,7 @@
         <div id="map-description" class="form-text">Click on the map to set coordinates.</div>
     </div>
 </div>
-@section Scripts
-    {
+
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw&callback=initMap">
     </script>
@@ -124,7 +124,7 @@
 
         }
     </script>
-}
+
 
 <style>
     div#main {

@@ -19,7 +19,6 @@ namespace CarParkingSystem.Controllers
         public async Task<IActionResult> Index()
         {
             var parkingLots = await parkingService.LoadParkingLotsAsync();
-            ViewBag.ParkingLots = JsonConvert.SerializeObject(parkingLots);
             return View(parkingLots);
         }
         [HttpPost]
@@ -38,15 +37,15 @@ namespace CarParkingSystem.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async  Task<IActionResult> Create(ParkingLotViewModel model)
+        public async Task<IActionResult> Create(ParkingLotViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             try
             {
-               await parkingService.AddLocationAsync(model);
+                await parkingService.AddLocationAsync(model);
 
             }
             catch (ArgumentException ae)
@@ -54,14 +53,14 @@ namespace CarParkingSystem.Controllers
                 ModelState.AddModelError("Name", ae.Message);
                 return View(model);
             }
-            return RedirectToAction("Index","Parking");
+            return RedirectToAction("Index", "Parking");
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string name)
         {
-            ParkingLotViewModel model=new ParkingLotViewModel();
+            ParkingLotViewModel model = new ParkingLotViewModel();
             try
             {
                 model = await parkingService.GetParkingLot(name);
@@ -76,15 +75,15 @@ namespace CarParkingSystem.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string name, ParkingLotViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             try
             {
-                await parkingService.EditParkingLotAsync(name,model);
+                await parkingService.EditParkingLotAsync(name, model);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
