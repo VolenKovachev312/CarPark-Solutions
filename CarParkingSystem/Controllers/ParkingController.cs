@@ -58,14 +58,15 @@ namespace CarParkingSystem.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string name)
+        public async Task<IActionResult> Edit(string nameToEdit)
         {
             ParkingLotViewModel model = new ParkingLotViewModel();
             try
             {
-                model = await parkingService.GetParkingLot(name);
+                model = await parkingService.GetParkingLot(nameToEdit);
+                ViewBag.Name = nameToEdit;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 ModelState.AddModelError("Name", e.Message);
             }
@@ -73,7 +74,7 @@ namespace CarParkingSystem.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string name, ParkingLotViewModel model)
+        public async Task<IActionResult> Edit(ParkingLotViewModel model,string nameToEdit)
         {
             if (!ModelState.IsValid)
             {
@@ -81,11 +82,11 @@ namespace CarParkingSystem.Controllers
             }
             try
             {
-                await parkingService.EditParkingLotAsync(name, model);
+                await parkingService.EditParkingLotAsync(nameToEdit, model);
             }
             catch (Exception e)
             {
-
+                ModelState.AddModelError("EditError", e.Message);
             }
             return View(model);
         }

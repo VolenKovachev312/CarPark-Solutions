@@ -1,4 +1,9 @@
 ﻿@using CarParkingSystem.Models;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var apiKey = Configuration.GetValue(typeof(string), "GoogleApiKey");
+}
 @model IEnumerable<ParkingLotViewModel>;
 <link rel="stylesheet" href="~/css/locations.css" />
 <script src="~/js/site.js"></script>
@@ -9,7 +14,7 @@
         <label for="location" class="form-label">Where do you want to park?</label>
         <button id="near-me" onclick="getLocation()">Find parking near me</button>
         <div id="search-bar">
-            <input class="form-control" id="location" placeholder="Enter an Address or Place to find parking">
+            <input class="form-control" id="location" onkeypress="inputFill(event)" placeholder="Enter an Address or Place to find parking">
         </div>
         <div id="location-list">
         </div>
@@ -28,13 +33,13 @@
 
 <script>
     (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-        key: "AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw",
+        key: "@apiKey",
         v: "weekly",
         l: "places"
     });
 </script>
 <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw&libraries=geometry,places&callback=initMap&callback=initAutocomplete">
+        src="https://maps.googleapis.com/maps/api/js?key=@apiKey&libraries=geometry,places&callback=initMap&callback=initAutocomplete">
 </script>
 <script>
     //Scrolls to map
@@ -185,6 +190,14 @@
 
 </script>
 <script>
+    function inputFill(event){
+        if(event.keycode==13)
+        {
+            fillLocationList();
+        }
+    }
+    </script>
+<script>
     async function fillLocationList() {
         const { encoding } = await google.maps.importLibrary("geometry")
         const list = document.getElementById('location-list');
@@ -214,32 +227,31 @@
                     targetLatLng= await getLatLng();
                 }
                 try{
-                   
                     var distance = google.maps.geometry.spherical.computeDistanceBetween(targetLatLng, parkingLatLng) / 1000;
-                    if (40 > distance) {
-
+                        if (40>distance) {
 
                         list.innerHTML += `
                                                                                         <div id="card-container">
                                                                                                         <h2 class="ui header">@parking.Name</h2>
                                                                                                                                                                                                                     <p>@parking.Address</p>
                                                                                                                                                                                                                     <p>Hourly Rate: @parking.HourlyRate$ | Empty spots: @parking.AvailableSpaces</p>
-                    @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
-                    {
-                                        <p class="open">Open</p>
-                    }
-                    else
-                    {
-                        TimeSpan ts = new TimeSpan(24, 0, 0);
-                        TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
-                        string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                        output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                                        <p class="closed">@output</p>
-                    }
-                                             <hr>
-                                     </div>
-                                 `;
-                    }
+                        @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
+                        {
+                                            <p class="open">Open</p>
+                        }
+                        else
+                        {
+                            TimeSpan ts = new TimeSpan(24, 0, 0);
+                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                            <p class="closed">@output</p>
+                        }
+                                                 <hr>
+                                         </div>
+                                     `;
+                        }
+                    
                     
                 }
                 catch(error)
@@ -253,14 +265,12 @@
     }
     if(list.innerHTML=="")
     {
-        console.log(true);
             list.innerHTML = `<h2 id="no-locations">No nearby locations found.</h2>`
     }
         async function getLatLng() {
             try {
-                var response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw`);
+                var response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=@apiKey`);
                 var data = await response.json();
-                console.log("request called");
                 return new google.maps.LatLng(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
             }
             catch (error) {

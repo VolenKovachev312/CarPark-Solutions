@@ -6,7 +6,7 @@
         {
             <h2>No parkings found!</h2>
         }
-        @foreach (var parking in Model.Where(p=>p.Address.Contains(ViewBag.Search)||p.Name.Contains(ViewBag.Search)))
+        @foreach (var parking in Model.Where(p=>p.Address.ToLower().Contains(ViewBag.Search.ToLower())||p.Name.ToLower().Contains(ViewBag.Search.ToLower())))
         {
             <div class="card-wrapper">
             <div class="card-content">
@@ -35,7 +35,11 @@
                                 <p class="closed">@output</p>
                             }
                         }
+                        <form method="get" asp-action="Edit" asp-controller="Parking">
+                        <button id="edit" type="submit" value="@parking.Name" name="nameToEdit">Edit</button>
+                        </form>
                     </div>
+                    
             </div>
             </div>
 
@@ -83,6 +87,14 @@
     }
 </script>
 <style>
+    button#edit{
+        border: solid #343538 1px;
+        background-color: #343538;
+        color:white;
+        margin-top:20px;
+        font-size:1.5em;
+        padding:4px 16px;
+    }
     form{
         width: 100%;
         gap:16px;

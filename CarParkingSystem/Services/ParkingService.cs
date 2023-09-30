@@ -42,18 +42,18 @@ namespace CarParkingSystem.Services
 
         }
 
-        public async Task EditParkingLotAsync(string name,ParkingLotViewModel model)
+        public async Task EditParkingLotAsync(string nameToEdit, ParkingLotViewModel model)
         {
-            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p=>p.Name == name);
+            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p=>p.Name == nameToEdit);
             if (parkingLot == null)
             {
                 throw new ArgumentException("Parking lot with this name does not exist!");
             }
-            if(await context.ParkingLots.AnyAsync(p=>p.Name==model.Name))
+            if(await context.ParkingLots.AnyAsync(p=>p.Name==model.Name&&model.Name!=nameToEdit))
             {
                 throw new ArgumentException("Parking lot with this name already exists!");
             }
-            if (await context.ParkingLots.AnyAsync(p => p.Address == model.Address))
+            if (await context.ParkingLots.AnyAsync(p => p.Address == model.Address&&p.Name!=nameToEdit))
             {
                 throw new ArgumentException("Parking lot with this address already exists!");
             }
@@ -66,7 +66,6 @@ namespace CarParkingSystem.Services
             parkingLot.ClosingHour = model.ClosingHour;
             parkingLot.IsNonStop = model.IsNonStop;
             parkingLot.ImageUrl = model.ImageUrl;
-            context.Database.ExecuteSqlRaw("UPDATE dbo.ParkingLots SET Name='Concurrency check' WHERE Capacity=25");
             var saved = false;
             while (!saved)
             {
@@ -109,24 +108,34 @@ namespace CarParkingSystem.Services
             
         }
 
-        public async Task<ParkingLotViewModel> GetParkingLot(string name)
+        public async Task<ParkingLotViewModel> GetParkingLot(string nameToEdit)
         {
-            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name == name);
-            var parkingLotViewModel = new ParkingLotViewModel()
+            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name == nameToEdit);
+            try
             {
-                Address = parkingLot.Address,
-                AvailableSpaces = parkingLot.AvailableSpaces,
-                Capacity = parkingLot.Capacity,
-                ClosingHour = parkingLot.ClosingHour,
-                HourlyRate = parkingLot.HourlyRate,
-                ImageUrl = parkingLot.ImageUrl,
-                IsNonStop = parkingLot.IsNonStop,
-                Latitude = parkingLot.Latitude,
-                Longitude = parkingLot.Longitude,
-                Name = parkingLot.Name,
-                OpeningHour = parkingLot.OpeningHour,
-            };
-            return parkingLotViewModel;
+                var parkingLotViewModel = new ParkingLotViewModel()
+                {
+                    Address = parkingLot.Address,
+                    AvailableSpaces = parkingLot.AvailableSpaces,
+                    Capacity = parkingLot.Capacity,
+                    ClosingHour = parkingLot.ClosingHour,
+                    HourlyRate = parkingLot.HourlyRate,
+                    ImageUrl = parkingLot.ImageUrl,
+                    IsNonStop = parkingLot.IsNonStop,
+                    Latitude = parkingLot.Latitude,
+                    Longitude = parkingLot.Longitude,
+                    Name = parkingLot.Name,
+                    OpeningHour = parkingLot.OpeningHour,
+                };
+                return parkingLotViewModel;
+
+            }
+            catch (Exception ae)
+            {
+
+                throw new ArgumentException($"Parking Lot with name {nameToEdit} does not exist.");
+            }
+           
         }
 
         public async Task<IEnumerable<ParkingLotViewModel>> LoadParkingLotsAsync()
