@@ -45,6 +45,9 @@ namespace CarParkingSystem.Models
 
         [Required]
         [Range(HourlyRateMin,HourlyRateMax, ErrorMessage ="Hourly Rate must be more than 0!")]
-        public decimal HourlyRate { get; set; } 
+        public decimal HourlyRate { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

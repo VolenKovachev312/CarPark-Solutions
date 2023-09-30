@@ -53,7 +53,7 @@ namespace CarParkingSystem.Data.Models
         public string ImageUrl { get; set; }
 
         [Required]
-        public bool isDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; }
         //Concurrency check
         [Timestamp]
         public byte[] RowVersion { get; set; }

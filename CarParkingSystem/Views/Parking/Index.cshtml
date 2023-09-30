@@ -66,7 +66,7 @@
 
         //Place markers for all locations
         var marker;
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where(p=>p.IsDeleted==false))
     {
         <text>
                    marker = new google.maps.Marker({
@@ -204,7 +204,7 @@
         list.innerHTML = "";
 
     @{
-        foreach (var parking in Model)
+        foreach (var parking in Model.Where(p=>p.IsDeleted==false))
         {
 
             <text>

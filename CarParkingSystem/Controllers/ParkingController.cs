@@ -88,7 +88,7 @@ namespace CarParkingSystem.Controllers
             {
                 ModelState.AddModelError("EditError", e.Message);
             }
-            return View(model);
+            return RedirectToAction("Index","Admin");
         }
     }
 }

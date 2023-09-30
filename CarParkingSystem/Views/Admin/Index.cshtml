@@ -35,6 +35,10 @@
                                 <p class="closed">@output</p>
                             }
                         }
+                        @if(parking.IsDeleted)
+                        {
+                            <p class="closed">Is Deleted</p>
+                        }
                         <form method="get" asp-action="Edit" asp-controller="Parking">
                         <button id="edit" type="submit" value="@parking.Name" name="nameToEdit">Edit</button>
                         </form>
@@ -127,10 +131,9 @@
     p.closed{
         color:red;
     }
-    div.card-body{
-        height:10em;
-    }
+    
     div.card-content{
+
         padding:0;
         display:flex;
         border-top: 1px solid #343538;
@@ -144,8 +147,8 @@
     }
     
     img{
-        width:30%;
-        object-fit:fill;
+        width:35%;
+        object-fit:cover;
     }
     
     div#page{

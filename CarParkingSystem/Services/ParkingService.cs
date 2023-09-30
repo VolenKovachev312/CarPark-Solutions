@@ -31,7 +31,7 @@ namespace CarParkingSystem.Services
                 Address=model.Address,
                 OpeningHour = model.OpeningHour,
                 ClosingHour = model.ClosingHour,
-                IsNonStop = model.IsNonStop
+                IsNonStop = model.IsNonStop,
             };
             if (context.ParkingLots.Any(p => p.Name == model.Name))
             {
@@ -66,6 +66,7 @@ namespace CarParkingSystem.Services
             parkingLot.ClosingHour = model.ClosingHour;
             parkingLot.IsNonStop = model.IsNonStop;
             parkingLot.ImageUrl = model.ImageUrl;
+            parkingLot.IsDeleted = model.IsDeleted;
             var saved = false;
             while (!saved)
             {
@@ -126,6 +127,7 @@ namespace CarParkingSystem.Services
                     Longitude = parkingLot.Longitude,
                     Name = parkingLot.Name,
                     OpeningHour = parkingLot.OpeningHour,
+                    IsDeleted= parkingLot.IsDeleted
                 };
                 return parkingLotViewModel;
 
@@ -153,7 +155,8 @@ namespace CarParkingSystem.Services
                 AvailableSpaces=p.AvailableSpaces,
                 OpeningHour=p.OpeningHour,
                 ClosingHour=p.ClosingHour,
-                IsNonStop=p.IsNonStop
+                IsNonStop=p.IsNonStop,
+                IsDeleted=p.IsDeleted
                 
             }).ToList();
         }
