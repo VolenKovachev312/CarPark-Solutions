@@ -1,4 +1,9 @@
 ﻿@using CarParkingSystem.Models;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var apiKey = Configuration.GetValue(typeof(string), "GoogleApiKey");
+}
 @model ParkingLotViewModel
 <div id="main">
     <div id="form">
@@ -66,7 +71,7 @@
 </div>
 
     <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=@apiKey&callback=initMap">
     </script>
     <script>
         function checkChange(ckType) {
@@ -97,7 +102,7 @@
                 var longitude = event.latLng.lng();
                 document.getElementById('latitude').value = latitude;
                 document.getElementById('longitude').value = longitude;
-                fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBWgAm8E5i4XXP7Qq-OLjc9h4WjOTtzEsw')
+                fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=@apiKey')
                     .then(response => {
                         return response.json();
                     })
