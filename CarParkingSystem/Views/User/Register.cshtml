@@ -1,45 +1,120 @@
 ﻿@model RegisterViewModel
-    <div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;">
-                        <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+<div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                            <form id="registerForm" method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                               
-                                <div class="form-outline mb-4">
-                                    <label asp-for="@Model.Email">Email</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.Email"  />
-                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                                </div>
+                    <form id="registerForm" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <div class="form-outline mb-4">
-                                    <label asp-for="@Model.Password">Password</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password"  />
-                                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword"  />
-                                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button id="registerSubmit" type="submit" class="btn btn-outline-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                                </div>
-
-                                <p class="text-center text-muted mt-5 mb-0">
-                                    Already have an account? <a href="#!" class="fw-bold text-body" onclick="@("window.location.href='" + @Url.Action("Login", "User") + "'");"><u >Login here</u></a>
-                                </p>
-
-                            </form>
-
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.Email">Email</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.Email" placeholder="ex - johnsmith@gmail.com" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
                         </div>
-                    </div>
+                        <div id="name-fields">
+                            <div class="form-outline mb-4">
+                                <label asp-for="@Model.FirstName">First Name</label>
+                                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.FirstName" placeholder="John" />
+                                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label asp-for="@Model.LastName">Last Name</label>
+                                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.LastName" placeholder="Smith" />
+                                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.PhoneNumber">Phone Number</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.PhoneNumber" placeholder="+359023023023" />
+                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.Password">Password</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" placeholder="enter password" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" placeholder="repeat password" />
+                            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button id="registerSubmit" type="submit">Register</button>
+                        </div>
+
+                        <p class="text-center mt-5 mb-0">
+                            Already have an account? <a href="#!" class="fw-bold text-body" onclick="@("window.location.href='" + @Url.Action("Login", "User") + "'");"><u>Login here</u></a>
+                        </p>
+
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+<style>
+    button#registerSubmit {
+        background-color: coral;
+        border: coral solid 1px;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 32px;
+        font-size: 1.5em;
+        flex-grow: inherit;
+    }
+
+        button#registerSubmit:hover {
+            background-color: orangered;
+            border: orangered solid 1px;
+            transition: all 0.1s ease-in;
+        }
+
+    div.form-outline.mb-4 {
+        width: 100%;
+    }
+
+    u {
+        color: coral;
+    }
+    u:hover{
+        color:orangered;
+    }
+
+    div#name-fields {
+        display: flex;
+        width: 100%;
+        gap: 32px;
+    }
+
+    input#form3Example3cg {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0px;
+        padding: 0;
+    }
+
+        input#form3Example3cg:focus {
+            box-shadow: none;
+            border-color: coral;
+            transition: all 0.25s ease-in;
+        }
+
+    label {
+        font-weight: bold;
+    }
+
+    input#form3Example3cg::placeholder {
+        font-weight: 100;
+        color: lightgray
+    }
+
+    h2 {
+        font-weight: bold;
+    }
+</style>

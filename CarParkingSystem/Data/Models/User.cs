@@ -1,15 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using static CarParkingSystem.Constants.Constants.User;
 
 namespace CarParkingSystem.Data.Models
 {
     public class User:IdentityUser<Guid>
     {
-        public string? CarNumber { get; set; }
+        public string? LicensePlateNumber { get; set; }
 
-        public string? CarMake { get; set; }
+        [Required]
+        [StringLength(FirstNameLengthMax, MinimumLength = FirstNameLengthMin)]
+        public string FirstName { get; set; }
 
-        public string? CarModel { get; set; }
+        [Required]
+        [StringLength(LastNameLengthMax, MinimumLength = LastNameLengthMin)]
+        public string LastName { get; set; }
 
-        public decimal Balance { get; set; } = 50;
+        public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
+
     }
 }

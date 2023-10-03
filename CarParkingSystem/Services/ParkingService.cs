@@ -109,7 +109,7 @@ namespace CarParkingSystem.Services
             
         }
 
-        public async Task<ParkingLotViewModel> GetParkingLot(string nameToEdit)
+        public async Task<ParkingLotViewModel> GetParkingLotAsync(string nameToEdit)
         {
             var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name == nameToEdit);
             try

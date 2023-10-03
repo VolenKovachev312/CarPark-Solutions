@@ -8,7 +8,7 @@ namespace CarParkingSystem.Contracts
 
         Task<IEnumerable<ParkingLotViewModel>> LoadParkingLotsAsync();
 
-        Task<ParkingLotViewModel> GetParkingLot(string name);
+        Task<ParkingLotViewModel> GetParkingLotAsync(string name);
 
         Task EditParkingLotAsync(string name, ParkingLotViewModel model);
     }

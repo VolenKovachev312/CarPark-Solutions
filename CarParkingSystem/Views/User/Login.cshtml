@@ -1,37 +1,79 @@
 ﻿@model LoginViewModel
-    <div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;">
-                        <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Login</h2>
+<div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form id="registerForm" method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                               
+                    <form id="registerForm" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <div class="form-outline mb-4">
-                                    <label asp-for="@Model.Email">Email</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email"  />
-                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                                </div>
 
-                                <div class="form-outline mb-4">
-                                    <label asp-for="@Model.Password">Password</label>
-                                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password"  />
-                                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                                </div>
-
-                                <div class="d-flex justify-content-center">
-                                    <input id="registerSubmit" type="submit" class="btn btn-outline-success btn-block btn-lg gradient-custom-4 text-body" asp-action="Login" value="Login"/>
-                                </div>
-
-                            </form>
-
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.Email">Email</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email" placeholder="ex - johnsmith@gmail.com" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
                         </div>
-                    </div>
+
+                        <div class="form-outline mb-4">
+                            <label asp-for="@Model.Password">Password</label>
+                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" placeholder="enter password" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button id="loginSubmit" onclick="history.go(-1); return false;" type="submit">Login</button>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+<style>
+    button#loginSubmit {
+        background-color: coral;
+        border: coral solid 1px;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 32px;
+        font-size: 1.5em;
+        flex-grow: inherit;
+    }
+
+        button#loginSubmit:hover {
+            background-color: orangered;
+            border: orangered solid 1px;
+            transition: all 0.1s ease-in;
+        }
+
+    input#form3Example3cg {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0px;
+        padding: 0;
+    }
+
+        input#form3Example3cg:focus {
+            box-shadow: none;
+            border-color: coral;
+            transition: all 0.25s ease-in;
+        }
+
+    label {
+        font-weight: bold;
+    }
+
+    input#form3Example3cg::placeholder {
+        font-weight: 100;
+        color: lightgray
+    }
+
+    h2 {
+        font-weight: bold;
+    }
+</style>

@@ -4,6 +4,7 @@ using CarParkingSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using System.Security.Claims;
 
@@ -73,7 +74,10 @@ namespace CarParkingSystem.Controllers
             var user = new User()
             {
                 UserName = model.Email,
-                Email = model.Email
+                Email = model.Email,
+                FirstName=model.FirstName,
+                LastName=model.LastName,
+                PhoneNumber=model.PhoneNumber
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
@@ -147,9 +151,7 @@ namespace CarParkingSystem.Controllers
             var accountViewModel = new AccountViewModel()
             {
                 Email = user.Email,
-                CarMake=user.CarMake,
-                CarModel=user.CarModel,
-                CarNumber=user.CarNumber
+                LicensePlateNumber = user.LicensePlateNumber
             };
             return View(accountViewModel);
         }
@@ -209,7 +211,7 @@ namespace CarParkingSystem.Controllers
         {
             var userId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            await userService.ChangeCarInfoAsync(userId, viewModel.CarMake, viewModel.CarModel, viewModel.CarNumber);
+            await userService.ChangeCarInfoAsync(userId, viewModel.LicensePlateNumber);
 
             TempData["CarInfoChanged"] = "Successfuly changed car information!";
             return RedirectToAction("Account");

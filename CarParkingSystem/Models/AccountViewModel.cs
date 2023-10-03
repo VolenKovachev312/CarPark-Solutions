@@ -4,22 +4,22 @@ namespace CarParkingSystem.Models
 {
     public class AccountViewModel
     {
+        [Required]
         public string? Email { get; set; }
 
         [DataType(DataType.Password)]
+        [Required]
         public string? OldPassword { get; set; }
 
         [DataType(DataType.Password)]
+        [Required]
         public string? NewPassword { get; set; }
 
         [DataType(DataType.Password)]
+        [Required]
         public string? ConfirmNewPassword { get; set; }
 
-
-        public string? CarModel { get; set; }
-
-        public string? CarMake { get; set; }
-
-        public string? CarNumber { get; set; }
+        [Required]
+        public string? LicensePlateNumber { get; set; }
     }
 }

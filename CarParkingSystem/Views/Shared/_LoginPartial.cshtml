@@ -2,63 +2,60 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-<link rel="stylesheet" href="~/css/locations.css"/>
+<link rel="stylesheet" href="~/css/locations.css" />
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-   @* <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @* <li class="nav-item">
+    <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>*@
-     <li class="nav-item" >
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Page</a>
+            </li>
+        }
+        <li class="nav-item">
+
             <div class="dropdown" style="margin-right:100px;">
                 <button class="" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="~/icons8-account-48.png" style="width:40px; height:40px;">
+                    <img src="~/icons8-account-48.png" style="width:34px; height:34px;">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                    @if(!SignInManager.IsSignedIn(User))
-                    {
-                    <li><center><a class="nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a></center></li>
-                    <div class="dropdown-divider"></div>
-                    <li><center><a class="nav-link" asp-area=""  asp-controller="User" asp-action="Register">Register</a></center></li>
-                    }
-                    else
-                    {
-                        <form class="form-inline" asp-area=""  asp-controller="User" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)">
+
+                    <form class="form-inline" asp-area="" asp-controller="User" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)">
                         <center> <button type="submit" class="nav-link btn btn-link text-dark">Account</button></center>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <form class="form-inline" asp-area=""  asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <form class="form-inline" asp-area="" asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
                         <center> <button type="submit" class="nav-link btn btn-link text-dark">Logout</button></center>
-                        </form>
-                    }
-                    
+                    </form>
                 </ul>
             </div>
         </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
-    </li>
-}
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
+        </li>
+    }
 </ul>
 <style>
-    body > header > nav > div > div > ul > li> a.nav-link
-    {
+    body > header > nav > div > div > ul > li > a.nav-link {
         color: white !important;
         font-family: 'Roboto Condensed';
     }
+    li.nav-item{
+        margin-right:20px;
+        font-size:1em;
+    }
+    button {
+        background-color: transparent;
+        border: 0px;
+    }
 
-   button{
-       background-color:transparent;
-       border: 0px;
-   }
-   button:hover{
-       transition:all 0.2s ease-in;
-       transform:scale(1.1);
-   }
 </style>

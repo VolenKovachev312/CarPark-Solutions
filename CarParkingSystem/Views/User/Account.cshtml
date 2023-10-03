@@ -33,26 +33,16 @@
                         <span asp-validation-for="@Model.ConfirmNewPassword" class="text-danger"></span>
                         <input type="submit" class="btn btn-dark btn-changePassword" asp-action="ChangePassword" asp-controller="User" value="Change Password">
                         </div>
-                    <label asp-for="@Model.CarMake">Car Make</label>
                     @if (TempData["CarInfoChanged"] != null)
                     {
                         <p class="message-success"> @TempData["CarInfoChanged"] </p>
                     }
-                        <div class="form-outline mb-4">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarMake"  />
-                            <span asp-validation-for="@Model.CarMake" class="text-danger"></span>
-                        </div>
-                    <label asp-for="@Model.CarModel">Car Model</label>
-
-                        <div class="form-outline mb-4">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarModel"  />
-                            <span asp-validation-for="@Model.CarModel" class="text-danger"></span>
-                        </div>
-                    <label asp-for="@Model.CarNumber">Car Number</label>
+                       
+                    <label asp-for="@Model.LicensePlateNumber">License Plate Number</label>
 
                         <div class="form-outline mb-4 carinfo">
-                            <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.CarNumber"  />
-                            <span asp-validation-for="@Model.CarNumber" class="text-danger"></span>
+                        <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="" aria-required="true" asp-for="@Model.LicensePlateNumber" />
+                        <span asp-validation-for="@Model.LicensePlateNumber" class="text-danger"></span>
                         <input type="submit" class="btn btn-dark" asp-action="ChangeCarInfo" asp-controller="User" value="Change Car Information">
                         </div>
 

@@ -3,6 +3,7 @@ using CarParkingSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using System.Web.Helpers;
 
 namespace CarParkingSystem.Controllers
@@ -10,9 +11,11 @@ namespace CarParkingSystem.Controllers
     public class ParkingController : Controller
     {
         private readonly IParkingService parkingService;
-        public ParkingController(IParkingService parkingService)
+        private readonly IUserService userService;
+        public ParkingController(IParkingService parkingService,IUserService userService)
         {
             this.parkingService = parkingService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -63,7 +66,7 @@ namespace CarParkingSystem.Controllers
             ParkingLotViewModel model = new ParkingLotViewModel();
             try
             {
-                model = await parkingService.GetParkingLot(nameToEdit);
+                model = await parkingService.GetParkingLotAsync(nameToEdit);
                 ViewBag.Name = nameToEdit;
             }
             catch (ArgumentException e)
@@ -89,6 +92,33 @@ namespace CarParkingSystem.Controllers
                 ModelState.AddModelError("EditError", e.Message);
             }
             return RedirectToAction("Index","Admin");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Reserve(string parkingName)
+        {
+            ReserveViewModel model = new ReserveViewModel();
+            try
+            {
+                model.ParkingLotViewModel= await parkingService.GetParkingLotAsync(parkingName);
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (userId != null)
+                {
+                    model.UserViewModel = await userService.GetUserViewModelAsync(userId);
+                    ViewBag.IsLoggedIn = true;
+                }
+                else
+                {
+                    ViewBag.IsLoggedIn = false;
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["Message"] = e.Message;
+                return RedirectToAction("Index", "Parking");
+            }
+
+            return View(model);
         }
     }
 }

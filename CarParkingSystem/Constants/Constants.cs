@@ -31,5 +31,14 @@ namespace CarParkingSystem.Constants
             public const double LongitudeMax = 180;
             public const double LongitudeMin = -180;
         }
+        
+        public static class User
+        {
+            public const int FirstNameLengthMax = 20;
+            public const int FirstNameLengthMin = 2;
+
+            public const int LastNameLengthMax = 20;
+            public const int LastNameLengthMin = 2;
+        }
     }
 }

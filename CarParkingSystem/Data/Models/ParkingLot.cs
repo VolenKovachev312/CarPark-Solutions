@@ -57,5 +57,7 @@ namespace CarParkingSystem.Data.Models
         //Concurrency check
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

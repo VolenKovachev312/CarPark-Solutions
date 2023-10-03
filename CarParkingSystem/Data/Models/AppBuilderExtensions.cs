@@ -48,7 +48,10 @@ namespace CarParkingSystem.Data.Models
             testUser = new User()
             {
                 UserName = "testuser@gmail.com",
-                Email = "testuser@gmail.com"
+                Email = "testuser@gmail.com",
+                FirstName = "User",
+                LastName = "User",
+                PhoneNumber = "0999888777"
             };
             await userManager.CreateAsync(testUser, "testpassword");
             await userManager.AddToRoleAsync(testUser, "User");
@@ -63,7 +66,10 @@ namespace CarParkingSystem.Data.Models
             testAdmin = new User()
             {
                 UserName = "testadmin@gmail.com",
-                Email = "testadmin@gmail.com"
+                Email = "testadmin@gmail.com",
+                FirstName = "Admin",
+                LastName = "Admin",
+                PhoneNumber = "0999888777"
             };
             await userManager.CreateAsync(testAdmin, "testpassword");
             await userManager.AddToRoleAsync(testAdmin, "Admin");

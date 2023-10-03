@@ -7,7 +7,14 @@
 @model IEnumerable<ParkingLotViewModel>;
 <link rel="stylesheet" href="~/css/locations.css" />
 <script src="~/js/site.js"></script>
-
+ @if (TempData["Message"] != null)
+                    {
+                        <script type="text/javascript">
+                            window.onload = function () {
+                                alert('@TempData["Message"]');
+                            };
+                        </script>
+                    }
 
 <div id="content-wrapper">
     <div id="location-input">
@@ -81,18 +88,33 @@
                                                                                                                             <p>@item.Address</p>
                                                                                                                             <p>Hourly Rate: @item.HourlyRate$</p>
                                                                                                                             <p>Empty spots: @item.AvailableSpaces</p>
-                @if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+                @if (!item.IsNonStop)
                 {
-                                                                                                                                    <p class="open">Open</p>
-                }
-                else
-                {
-                    TimeSpan ts = new TimeSpan(24, 0, 0);
-                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
-                    string output = timeUntil.Hours > 1 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in 1 hour)";
-                                                                                                                                    <p class="closed">@output</p>
+                                         <p>Working Hours: @item.OpeningHour - @item.ClosingHour</p>
 
                 }
+                    @if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+                    {
+                    if (item.IsNonStop)
+                        {
+                                                <p class="open">24/7 Open</p>
+                        }
+                        else
+                        {
+                                                <p class="open">Open</p>
+                        }
+                    }
+                    else
+                    {
+                        TimeSpan ts = new TimeSpan(24, 0, 0);
+                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
+                        string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                        output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                                        <p class="closed">@output</p>
+                    }
+                        <form method="get" asp-action="Reserve" asp-controller="Parking">
+                                <button id="reserve"  name="parkingName" value="@item.Name">Reserve now</button>
+                                </form>
                                 </div>`);
                 infowindow.open(map, marker);
                 infowindow.setPosition({ lat: @item.Latitude, lng: @item.Longitude});
@@ -231,13 +253,26 @@
                         if (40>distance) {
 
                         list.innerHTML += `
-                                                                                        <div id="card-container">
-                                                                                                        <h2 class="ui header">@parking.Name</h2>
-                                                                                                                                                                                                                    <p>@parking.Address</p>
-                                                                                                                                                                                                                    <p>Hourly Rate: @parking.HourlyRate$ | Empty spots: @parking.AvailableSpaces</p>
+                        <div id="card-container">
+                        <h2 class="ui header">@parking.Name</h2>
+                        <p>@parking.Address</p>
+                        <p>Hourly Rate: @parking.HourlyRate$ | Empty spots: @parking.AvailableSpaces</p>
+                        @if(!parking.IsNonStop)
+                        {
+                             <p>Working Hours: @parking.OpeningHour - @parking.ClosingHour</p>
+
+                        }
+                        <div id="open-closed-reserve">
                         @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
                         {
-                                            <p class="open">Open</p>
+                            if(parking.IsNonStop)
+                            {
+                                <p class="open">24/7 Open</p>
+                            }
+                            else
+                            {
+                                <p class="open">Open</p>
+                            }
                         }
                         else
                         {
@@ -247,9 +282,12 @@
                             output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
                                                             <p class="closed">@output</p>
                         }
-                                                 <hr>
-                                         </div>
-                                     `;
+                        <form method="get" asp-action="Reserve" asp-controller="Parking">
+                        <button id="reserve"  name="parkingName" value="@parking.Name">Reserve now</button>
+                        </form>
+                        </div>
+                                    <hr>
+                        </div>`;
                         }
                     
                     
@@ -281,6 +319,19 @@
 </script>
 <style>
     @@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@300;400;700&family=Work+Sans:wght@600&display=swap');
+    html{
+        height:100vh;
+    }
+    div#open-closed-reserve{
+        display:flex;
+        justify-content:space-between;
+    }
+    button#reserve{
+        text-decoration:none;
+        margin-right:8px;
+        color:dodgerblue;
+        padding:0;
+    }
     div#location-list{
         height:60vh;
         overflow:hidden;
@@ -325,9 +376,9 @@
         display: flex;
         text-align: center;
         margin: auto;
-        background-color: #343538;
+        background-color: coral;
         padding: 6px 24px;
-        border: solid #343538 1px;
+        border: solid coral 1px;
         border-radius: 32px;
         font-size: 1em;
         color: white;
@@ -359,20 +410,10 @@
         gap: 1em;
     }
 
-    button#search {
-        background-color: #343538;
-        padding: 6px 24px;
-        border: solid #343538 1px;
-        border-radius: 32px;
-        font-size: 1em;
-        color: white;
-        font-weight: 500;
-    }
-
-        button#search:hover, button#near-me:hover {
-            background-color: gray;
-            border: solid gray 1px;
-            transition: all ease-out 0.1s;
+        button#near-me:hover {
+        background-color: orangered;
+            border: solid orangered 1px;
+            transition: all ease-out 0.2s;
         }
 
 

@@ -39,9 +39,14 @@
                         {
                             <p class="closed">Is Deleted</p>
                         }
+                        <div id="park-info-buttons">
                         <form method="get" asp-action="Edit" asp-controller="Parking">
                         <button id="edit" type="submit" value="@parking.Name" name="nameToEdit">Edit</button>
                         </form>
+                        <form method="get" asp-action="Reservations" asp-controller="Parking">
+                            <button id="edit" type="submit" value="@parking.Name" name="name">Check all reservations</button>
+                        </form>
+                        </div>
                     </div>
                     
             </div>
@@ -49,6 +54,7 @@
 
         }
     </div>
+
     <div id="control-page">
         <div id="search">
             <form method="get" asp-action="Index" asp-controller="Admin">
@@ -56,6 +62,14 @@
                 <button type="submit" id="search-button" >Search</button>
             </form>
             
+        </div>
+        <h1 id="control-page-title">Control Page</h1>
+        <div id="button-wrapper">
+        <a asp-action="Create" asp-controller="Parking">Create new parking</a>
+        <form method="get" asp-action="User" asp-controller="Admin">
+            <input id="search-bar" class="form-control" placeholder="Enter a user email" name="email">
+            <button type="submit" id="user-button">Check user info</button>
+        </form>
         </div>
     </div>
 </div>
@@ -91,6 +105,41 @@
     }
 </script>
 <style>
+    a:hover{
+        color:white;
+    }
+    div#park-info-buttons{
+        display:flex;
+       justify-content:start;
+    }
+    h1{
+        margin-bottom:50px;
+        padding-bottom:16px;
+    }
+    div#button-wrapper{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:50px;
+    }
+    a{
+        text-decoration:none;
+        color:white;
+        border: solid #343538 1px;
+        background-color: #343538;
+        font-size:1.5em;
+        padding:4px 16px;
+    }
+    
+    h1#control-page-title{
+        margin-top:50px;
+        border-bottom: 1px solid #343538;
+    }
+    div#control-page{
+        display:flex;
+        flex-direction:column;
+        text-align:center;
+    }
     button#edit{
         border: solid #343538 1px;
         background-color: #343538;
@@ -105,11 +154,13 @@
         display:flex;
     }
     
-    button#search-button{
+    button#search-button,button#user-button{
         padding:8px 16px;
-        border-radius: 4px;
         background-color: #343538;
         color:white;
+    }
+    button#user-button{
+        width:30%;
     }
     div#control-page{
         width:30%;

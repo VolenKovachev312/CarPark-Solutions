@@ -2,6 +2,7 @@
 {
     using CarParkingSystem.Contracts;
     using CarParkingSystem.Data;
+    using CarParkingSystem.Models;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -15,20 +16,17 @@
             context = _context;
         }
 
-        public async Task ChangeCarInfoAsync(string userId, string carMake, string carModel, string carNumber)
+        public async Task ChangeCarInfoAsync(string userId, string licensePlateNumber)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
-            user.CarNumber = carNumber;
-            user.CarMake= carMake;
-            user.CarModel= carModel;
-
+            user.LicensePlateNumber = licensePlateNumber;
             await context.SaveChangesAsync();
         }
 
         public async Task ChangeEmailAsync(string userId, string email)
         {
-            var user= await context.Users.FirstOrDefaultAsync(u=>u.Id.ToString()== userId);
+            var user= await context.Users.FirstOrDefaultAsync(u=>u.Id.ToString() == userId);
             if (string.IsNullOrEmpty(email))
             {
                 throw new ArgumentException("Can not use blank space as email.");
@@ -51,5 +49,17 @@
             }
         }
 
+        public async Task<UserViewModel> GetUserViewModelAsync(string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            return new UserViewModel() 
+            {
+                Email=user.Email,
+                FirstName=user.FirstName,
+                LastName=user.LastName,
+                LicensePlateNumber=user.LicensePlateNumber,
+                PhoneNumber=user.PhoneNumber,
+            };
+        }
     }
 }

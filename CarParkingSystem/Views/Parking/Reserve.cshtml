@@ -1,0 +1,175 @@
+﻿@using CarParkingSystem.Data.Models;
+@using Microsoft.AspNetCore.Identity;
+@model ReserveViewModel
+@inject SignInManager<User> SignInManager
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert('@TempData["Message"]');
+        };
+    </script>
+}
+<div id="page-wrapper">
+    
+    <div id="info-form">
+        @if (!SignInManager.IsSignedIn(User))
+    {
+        <div id="not-logged-in">
+        <p id="already">
+            Already have an account? 
+        </p>
+                <a asp-action="Login" asp-controller="User">Sign in</a>
+        </div>
+    }
+        <h2>PERSONAL INFORMATION</h2>
+        <form id="registerForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.UserViewModel.Email">Email</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.UserViewModel.Email" placeholder="ex - johnsmith@gmail.com" />
+                <span asp-validation-for="@Model.UserViewModel.Email" class="text-danger"></span>
+            </div>
+            <div id="one-line-container">
+                <div class="form-outline mb-4">
+                    <label asp-for="@Model.UserViewModel.FirstName">First Name</label>
+                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" asp-for="@Model.UserViewModel.FirstName" placeholder="John" />
+                    <span asp-validation-for="@Model.UserViewModel.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-outline mb-4">
+                    <label asp-for="@Model.UserViewModel.LastName">Last Name</label>
+                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" asp-for="@Model.UserViewModel.LastName" placeholder="Smith" />
+                    <span asp-validation-for="@Model.UserViewModel.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.UserViewModel.PhoneNumber">Phone Number</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="phonenumber" aria-required="true" asp-for="@Model.UserViewModel.PhoneNumber" placeholder="+359023023023" />
+                <span asp-validation-for="@Model.UserViewModel.PhoneNumber" class="text-danger"></span>
+            </div>
+        </form>
+        <h2>VEHICLE INFORMATION</h2>
+        <form id="registerForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.UserViewModel.LicensePlateNumber">License Plate Number</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="licenseplate" aria-required="true" asp-for="@Model.UserViewModel.LicensePlateNumber" placeholder="EN2340PD" />
+                <span asp-validation-for="@Model.UserViewModel.LicensePlateNumber" class="text-danger"></span>
+            </div>
+        </form>
+        <h2>PAYMENT INFORMATION</h2>
+        <p id="warning">SKIP THIS SECTION FOR TESTING PURPOSES</p>
+        <form id="registerForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.CardNumber">Card Number</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="cardnumber" aria-required="true" asp-for="@Model.CardNumber" placeholder="0000 8888 4444 2222" />
+                <span asp-validation-for="@Model.CardNumber" class="text-danger"></span>
+            </div>
+            <div id="one-line-container">
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.ExpirationMonth">Exp. Month</label>
+                <input type="text" id="form3Example3cg" class="form-control form-control-lg" autocomplete="expm" aria-required="true" asp-for="@Model.ExpirationMonth" value="" placeholder="01" />
+                <span asp-validation-for="@Model.ExpirationMonth" class="text-danger"></span>
+            </div>
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.ExpirationYear">Exp. Year</label>
+                <input type="text" id="form3Example3cg" class="form-control form-control-lg" autocomplete="expy" aria-required="true" value="" asp-for="@Model.ExpirationYear" placeholder="2024" />
+                <span asp-validation-for="@Model.ExpirationYear" class="text-danger"></span>
+            </div>
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.CVV">CVV</label>
+                <input type="text" id="form3Example3cg" class="form-control form-control-lg" autocomplete="cvv" aria-required="true" value ="" asp-for="@Model.CVV" placeholder="542" />
+                <span asp-validation-for="@Model.CVV" class="text-danger"></span>
+            </div>
+            </div>
+        </form>
+    </div>
+    <div id="reservation-info">
+
+    </div>
+</div>
+<style>
+    div#not-logged-in{
+        padding:8px 16px;
+        display:flex;
+        justify-content:center;
+        gap:16px;
+        color:coral;
+        font-weight:bold;
+        margin-bottom:32px;
+        align-items:center;
+        border-bottom:1px solid gray;
+    }
+    div#not-logged-in>a{
+        font-size:1.5em;
+        color:white;
+        text-decoration:none;
+        border:1px solid coral;
+        border-radius:32px;
+        background-color:coral;
+        padding:2px 24px;
+    }
+    a:hover{
+        color:white;
+    }
+    
+    p#already{
+        font-size:1.5em;
+        margin-bottom: 0;
+    }
+    p#warning{
+        color:red;
+    }
+    h2{
+        margin-bottom:0;
+        font-weight:bold;
+    }
+    div#page-wrapper{
+        display:flex;
+        justify-content:end;
+        padding-bottom: 32px;
+    }
+    div#info-form{
+        width:40%;
+    }
+    div#reservation-info{
+        width:40%;
+    }
+
+    div.form-outline.mb-4 {
+        width: 100%;
+    }
+    
+    div#one-line-container {
+        display: flex;
+        width: 100%;
+        gap: 32px;
+    }
+
+    #form3Example3cg {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0px;
+        padding: 0;
+    }
+
+        input#form3Example3cg:focus {
+            box-shadow: none;
+            border-color: coral;
+            transition: all 0.25s ease-in;
+        }
+
+    label {
+        font-weight: bold;
+    }
+
+    input#form3Example3cg::placeholder {
+        font-weight: 100;
+        color: lightgray
+    }
+</style>

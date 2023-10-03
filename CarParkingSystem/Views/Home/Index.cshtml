@@ -3,11 +3,16 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@{
-    ViewData["Title"] = "Home Page";
-}
-<link rel="stylesheet" href="~/css/index.css"/>
 
+<link rel="stylesheet" href="~/css/index.css"/>
+ @if (TempData["Message"] != null)
+                    {
+                        <script type="text/javascript">
+                            window.onload = function () {
+                                alert('@TempData["Message"]');
+                            };
+                        </script>
+                    }
 <div class="hero">
     @*<img src="https://images.pexels.com/photos/2612855/pexels-photo-2612855.jpeg?cs=srgb&dl=pexels-jimmy-chan-2612855.jpg&fm=jpg" />*@
     <h1>CarPark Solutions</h1>
