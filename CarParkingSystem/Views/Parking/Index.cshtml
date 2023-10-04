@@ -84,34 +84,86 @@
             var infowindow = new google.maps.InfoWindow();
             google.maps.event.addListener(marker, "click", () => {
                 infowindow.setContent(`<div id="info-window">
-                                                                                                                            <h2 class="ui header">@item.Name</h2>
-                                                                                                                            <p>@item.Address</p>
-                                                                                                                            <p>Hourly Rate: @item.HourlyRate$</p>
-                                                                                                                            <p>Empty spots: @item.AvailableSpaces</p>
-                @if (!item.IsNonStop)
+                <h2 class="ui header">@item.Name</h2>
+                <p>@item.Address</p>
+                <p>Hourly Rate: @item.HourlyRate$</p>
+                @if(!item.IsNonStop)
                 {
-                                         <p>Working Hours: @item.OpeningHour - @item.ClosingHour</p>
-
+                            <p>Working Hours: @item.OpeningHour - @item.ClosingHour</p>
                 }
-                    @if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+
+                @if (item.ClosingHour < item.OpeningHour)
+                {
+                    if(DateTime.Now.TimeOfDay<= new TimeSpan(24,0,0))
                     {
-                    if (item.IsNonStop)
+                        if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay >= item.ClosingHour.ToTimeSpan()))
                         {
-                                                <p class="open">24/7 Open</p>
+                            if (item.IsNonStop)
+                            {
+
+                                                                                                    <p class="open">24/7 Open</p>
+                            }
+                            else
+                            {
+                                                                                                    <p class="open">Open</p>
+                            }
                         }
                         else
                         {
-                                                <p class="open">Open</p>
+                            TimeSpan ts = new TimeSpan(24, 0, 0);
+                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
+                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                            <p class="closed">@output</p>
+                        }
+                    }
+                    else
+                    {
+                        if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+                        {
+                            if (item.IsNonStop)
+                            {
+
+                                                                                                    <p class="open">24/7 Open</p>
+                            }
+                            else
+                            {
+                                                                                                    <p class="open">Open</p>
+                            }
+                        }
+                        else
+                        {
+                            TimeSpan ts = new TimeSpan(24, 0, 0);
+                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
+                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                                        <p class="closed">@output</p>
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+                    {
+                        if (item.IsNonStop)
+                        {
+                                                                                                    <p class="open">24/7 Open</p>
+                        }
+                        else
+                        {
+                                                                                                    <p class="open">Open</p>
                         }
                     }
                     else
                     {
                         TimeSpan ts = new TimeSpan(24, 0, 0);
-                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
+                        TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
                         string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
                         output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
                                                                         <p class="closed">@output</p>
                     }
+                }
                         <form method="get" asp-action="Reserve" asp-controller="Parking">
                                 <button id="reserve"  name="parkingName" value="@item.Name">Reserve now</button>
                                 </form>
@@ -167,13 +219,6 @@
     async function initAutocomplete()
     {
         
-    
-        //Get current location and zoom
-        
-        //Error handling
-        
-        
-
         //Search bar
         var marker=new google.maps.Marker();
         const locationInput = document.getElementById('location');
@@ -256,32 +301,59 @@
                         <div id="card-container">
                         <h2 class="ui header">@parking.Name</h2>
                         <p>@parking.Address</p>
-                        <p>Hourly Rate: @parking.HourlyRate$ | Empty spots: @parking.AvailableSpaces</p>
+                        <p>Hourly Rate: @parking.HourlyRate$
                         @if(!parking.IsNonStop)
                         {
                              <p>Working Hours: @parking.OpeningHour - @parking.ClosingHour</p>
 
                         }
                         <div id="open-closed-reserve">
-                        @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
-                        {
-                            if(parking.IsNonStop)
+                            
+                            @if (parking.ClosingHour < parking.OpeningHour)
                             {
-                                <p class="open">24/7 Open</p>
+                                if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay >= parking.ClosingHour.ToTimeSpan()))
+                                {
+                                    if (parking.IsNonStop)
+                                    {
+                                                        <p class="open">24/7 Open</p>
+                                    }
+                                    else
+                                    {
+                                                        <p class="open">Open</p>
+                                    }
+                                }
+                                else
+                                {
+                                    TimeSpan ts = new TimeSpan(24, 0, 0);
+                                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                                    string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                                    output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                    <p class="closed">@output</p>
+                                }
                             }
                             else
                             {
-                                <p class="open">Open</p>
+                                if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
+                                {
+                                    if (parking.IsNonStop)
+                                    {
+                                                                                <p class="open">24/7 Open</p>
+                                    }
+                                    else
+                                    {
+                                                                                <p class="open">Open</p>
+                                    }
+                                }
+                                else
+                                {
+                                    TimeSpan ts = new TimeSpan(24, 0, 0);
+                                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                                    string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                                    output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                        <p class="closed">@output</p>
+                                }
                             }
-                        }
-                        else
-                        {
-                            TimeSpan ts = new TimeSpan(24, 0, 0);
-                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
-                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                                            <p class="closed">@output</p>
-                        }
+
                         <form method="get" asp-action="Reserve" asp-controller="Parking">
                         <button id="reserve"  name="parkingName" value="@parking.Name">Reserve now</button>
                         </form>

@@ -5,6 +5,7 @@ namespace CarParkingSystem.Models
 {
     public class UserViewModel
     {
+        public Guid? Id { get; set; }
         public string Email { get; set; }
 
         public string FirstName { get; set; }
@@ -15,6 +16,6 @@ namespace CarParkingSystem.Models
 
         public string LicensePlateNumber { get; set; }
 
-        public IEnumerable<Reservation> Reservations { get; set; }
+        public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

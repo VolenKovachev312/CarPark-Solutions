@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using static CarParkingSystem.Constants.Constants.ParkingLot;
 namespace CarParkingSystem.Models
 {
     public class ReserveViewModel
@@ -8,17 +8,25 @@ namespace CarParkingSystem.Models
 
         public UserViewModel UserViewModel { get; set; }
 
+
         [Required]
-        public TimeOnly CheckInHour { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy hh:mm A}")]
+        public DateTime CheckInHour { get; set; }
         [Required]
-        public TimeOnly CheckOutHour { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy hh:mm A}")]
 
-        public string CardNumber { get; set; }
+        public DateTime CheckOutHour { get; set; }
 
-        public int ExpirationMonth { get; set; }
+        [Required]
+        [Range(0,double.MaxValue,ErrorMessage ="Enter valid dates!")]
+        public decimal Price { get; set; }
 
-        public int ExpirationYear { get; set; }
+        public string? CardNumber { get; set; }
 
-        public int CVV { get; set; }
+        public int? ExpirationMonth { get; set; }
+
+        public int? ExpirationYear { get; set; }
+
+        public int? CVV { get; set; }
     }
 }

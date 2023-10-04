@@ -14,6 +14,7 @@ namespace CarParkingSystem.Models
         //[Required]
         //[StringLength(CityLengthMax, MinimumLength=CityLengthMin)]
         //public string City { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(LocationLengthMax,MinimumLength =4,ErrorMessage ="Name must be at least 4 characters long!")]

@@ -42,6 +42,23 @@ namespace CarParkingSystem.Services
 
         }
 
+        public async Task CreateReservationAsync(ReserveViewModel model)
+        {
+            var userViewModel = model.UserViewModel;
+            var parkingLotViewModel = model.ParkingLotViewModel;
+            var reservation = new Reservation()
+            {
+                UserId = userViewModel.Id,
+                ParkingLotId = parkingLotViewModel.Id,
+                Email = userViewModel.Email,
+                CheckInTime = model.CheckInHour,
+                CheckOutTime = model.CheckOutHour,
+                Price=model.Price
+            };
+            await context.Reservations.AddAsync(reservation);
+            await context.SaveChangesAsync();
+        }
+
         public async Task EditParkingLotAsync(string nameToEdit, ParkingLotViewModel model)
         {
             var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p=>p.Name == nameToEdit);
@@ -116,6 +133,7 @@ namespace CarParkingSystem.Services
             {
                 var parkingLotViewModel = new ParkingLotViewModel()
                 {
+                    Id = parkingLot.Id,
                     Address = parkingLot.Address,
                     AvailableSpaces = parkingLot.AvailableSpaces,
                     Capacity = parkingLot.Capacity,

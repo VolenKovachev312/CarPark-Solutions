@@ -2,11 +2,17 @@
 @using Microsoft.AspNetCore.Identity;
 @model ReserveViewModel
 @inject SignInManager<User> SignInManager
-@if (TempData["Message"] != null)
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<form id="reservationForm" asp-action="Reserve" asp-controller="Parking">
+
+@if (TempData["Error"] != null)
 {
     <script type="text/javascript">
         window.onload = function () {
-            alert('@TempData["Message"]');
+            alert('@TempData["Error"]');
         };
     </script>
 }
@@ -23,8 +29,22 @@
         </div>
     }
         <h2>PERSONAL INFORMATION</h2>
-        <form id="registerForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if(SignInManager.IsSignedIn(User))
+            {
+            <input type="hidden" asp-for="@Model.UserViewModel.Id" value="@Model.UserViewModel.Id"/>
+            }
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.Id" value="@Model.ParkingLotViewModel.Id" />
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.Name" value="@Model.ParkingLotViewModel.Name"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.Capacity" value="@Model.ParkingLotViewModel.Capacity"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.HourlyRate" value="@Model.ParkingLotViewModel.HourlyRate"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.ImageUrl" value="@Model.ParkingLotViewModel.ImageUrl"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.IsDeleted" value="@Model.ParkingLotViewModel.IsDeleted"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.IsNonStop" value="@Model.ParkingLotViewModel.IsNonStop"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.OpeningHour" value="@Model.ParkingLotViewModel.OpeningHour"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.ClosingHour" value="@Model.ParkingLotViewModel.ClosingHour"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.AvailableSpaces" value="@Model.ParkingLotViewModel.AvailableSpaces"/>
+            <input type="hidden" asp-for="@Model.ParkingLotViewModel.Address" value="@Model.ParkingLotViewModel.Address"/>
 
             <div class="form-outline mb-4">
                 <label asp-for="@Model.UserViewModel.Email">Email</label>
@@ -48,9 +68,8 @@
                 <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="phonenumber" aria-required="true" asp-for="@Model.UserViewModel.PhoneNumber" placeholder="+359023023023" />
                 <span asp-validation-for="@Model.UserViewModel.PhoneNumber" class="text-danger"></span>
             </div>
-        </form>
+
         <h2>VEHICLE INFORMATION</h2>
-        <form id="registerForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-outline mb-4">
@@ -58,10 +77,8 @@
                 <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="licenseplate" aria-required="true" asp-for="@Model.UserViewModel.LicensePlateNumber" placeholder="EN2340PD" />
                 <span asp-validation-for="@Model.UserViewModel.LicensePlateNumber" class="text-danger"></span>
             </div>
-        </form>
         <h2>PAYMENT INFORMATION</h2>
         <p id="warning">SKIP THIS SECTION FOR TESTING PURPOSES</p>
-        <form id="registerForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-outline mb-4">
@@ -86,13 +103,115 @@
                 <span asp-validation-for="@Model.CVV" class="text-danger"></span>
             </div>
             </div>
-        </form>
     </div>
     <div id="reservation-info">
+        <p id="review">REVIEW YOUR ORDER</p>
+        <img src="@Model.ParkingLotViewModel.ImageUrl"/>
+        <div id="description">
+                <h3 asp-for="@Model.ParkingLotViewModel.Name">@Model.ParkingLotViewModel.Name.ToUpper()</h3>
+                <p id="address">@Model.ParkingLotViewModel.Address</p>
 
+                @if (!Model.ParkingLotViewModel.IsNonStop)
+                {
+                    <p>  Working Hours -  @Model.ParkingLotViewModel.OpeningHour - @Model.ParkingLotViewModel.ClosingHour </p>
+            }
+            else
+            {
+                <p id="open">24/7 OPEN</p>
+
+            }
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input class="form-control" id="form3Example3cg" type="text" name="dates" />
+                        @*<input id="checkin" type="hidden" value="2014-12-12 12:23" asp-for="@Model.CheckInHour"/>
+                        <span asp-validation-for="@Model.CheckInHour" class="text-danger"></span>*@
+                        <input id="checkin" type="hidden" id="checkin" asp-for="@Model.CheckInHour" asp-format="{0:dd/MM/yyyy hh:mm A}" />
+                        <span asp-validation-for="@Model.CheckInHour" class="text-danger"></span>
+
+                        <input id="checkout" type="hidden" asp-for="@Model.CheckOutHour" />
+                        <span asp-validation-for="@Model.CheckOutHour" class="text-danger"></span>
+
+                    </div>
+                <h2 id="total">Total: 0.00$</h2>
+                <input id="price" type="hidden" asp-for="@Model.Price" />
+                <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                <button id="submit" type="submit">Confirm reservation</button>
+
+        </div>
     </div>
 </div>
+</form>
+
+<script>
+    $('input[name="dates"]').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY/DD/M hh:mm A'
+        }
+    });
+    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+        var checkin = document.getElementById('checkin');
+        var checkout = document.getElementById('checkout');
+        checkin.value = picker.startDate.format('DD-MM-YYYY hh:mm A');
+        checkout.value = picker.endDate.format('DD-MM-YYYY hh:mm A');
+        var dateStart = new Date(picker.startDate.format('MM-DD-YYYY hh:mm A'));
+        var dateEnd = new Date(picker.endDate.format('MM-DD-YYYY hh:mm A'));
+        var timeDiff = dateEnd.getTime() - dateStart.getTime();
+        var timeDiffMinutes = Math.floor(timeDiff / (1000 * 60));
+        var priceNum = (timeDiffMinutes * (@Model.ParkingLotViewModel.HourlyRate/60)).toFixed(2);
+        var total = document.getElementById('total');
+        var button = document.getElementById('submit');
+        total.textContent = 'Total: ' + priceNum + '$';
+        var priceInput=document.getElementById('price');
+        priceInput.value=priceNum;
+    });
+
+    function dateDiffInDays(a, b) {
+  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+</script>
 <style>
+    p#open{
+        color:forestgreen;
+    }
+    .mb-3{
+        width:100%;
+    }
+    div#description{
+        padding:0px 32px;
+    }
+    p#address{
+        font-size:1.5em;
+    }
+    h3{
+        font-weight:bold;
+        font-size:3em;
+        margin-top:32px;
+    }
+    p#review{
+        font-size:1.5em;
+        font-weight:bold;
+        background-color:coral;
+        color:white;
+        padding:8px 16px;
+        margin-bottom:auto;
+    }
+    img{
+        width:100%;
+        height:35%;
+        object-fit:cover;
+    }
+    div#reservation-info{
+        width:30%;
+        box-shadow: -4px 0px 5px 0px rgba(184,184,184,0.38);
+    }
     div#not-logged-in{
         padding:8px 16px;
         display:flex;
@@ -104,7 +223,7 @@
         align-items:center;
         border-bottom:1px solid gray;
     }
-    div#not-logged-in>a{
+    div#not-logged-in>a,button#submit{
         font-size:1.5em;
         color:white;
         text-decoration:none;
@@ -113,8 +232,13 @@
         background-color:coral;
         padding:2px 24px;
     }
-    a:hover{
+    button#submit{
+        height:57px;
+        margin-top:32px;
+    }
+    div#not-logged-in>a:hover,button#submit:hover{
         color:white;
+        background-color:orangered;
     }
     
     p#already{
@@ -126,17 +250,16 @@
     }
     h2{
         margin-bottom:0;
+        margin-top:32px;
         font-weight:bold;
     }
     div#page-wrapper{
         display:flex;
         justify-content:end;
-        padding-bottom: 32px;
+        gap:32px;
+        height:calc(100vh - 124px);
     }
     div#info-form{
-        width:40%;
-    }
-    div#reservation-info{
         width:40%;
     }
 
@@ -148,6 +271,7 @@
         display: flex;
         width: 100%;
         gap: 32px;
+        align-items:center;
     }
 
     #form3Example3cg {
@@ -158,11 +282,11 @@
         padding: 0;
     }
 
-        input#form3Example3cg:focus {
-            box-shadow: none;
-            border-color: coral;
-            transition: all 0.25s ease-in;
-        }
+    input#form3Example3cg:focus {
+        box-shadow: none;
+        border-color: coral;
+        transition: all 0.25s ease-in;
+    }
 
     label {
         font-weight: bold;

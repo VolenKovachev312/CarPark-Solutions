@@ -54,6 +54,7 @@
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
             return new UserViewModel() 
             {
+                Id=user.Id,
                 Email=user.Email,
                 FirstName=user.FirstName,
                 LastName=user.LastName,
