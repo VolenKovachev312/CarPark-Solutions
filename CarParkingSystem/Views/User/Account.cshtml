@@ -48,14 +48,6 @@
 
                     <input type ="submit" class="btn btn-danger deleteaccount" asp-action="DeleteAccount" asp-controller="User" value="Delete Account"/>
                     </form>
-                    @if (TempData["Message"] != null)
-                    {
-                        <script type="text/javascript">
-                            window.onload = function () {
-                                alert('@TempData["Message"]');
-                            };
-                        </script>
-                    }
                 </div>
             </div>
         </div>

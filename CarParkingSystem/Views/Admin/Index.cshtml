@@ -12,6 +12,7 @@
             <div class="card-content">
                     <img src="@parking.ImageUrl" alt="parking image">
                     <div class="card-body">
+                    <div id="description">
                     <h2>@parking.Name</h2>
                         <h5 class="card-title">@parking.Address</h5>
                         @if(parking.IsNonStop)
@@ -22,29 +23,55 @@
                         else
                         {
                         <p class="card-text">@parking.OpeningHour - @parking.ClosingHour</p>
-                            @if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
-                            {
-                                <p class="open">Open</p>
-                            }
-                            else
-                            {
-                                TimeSpan ts = new TimeSpan(24, 0, 0);
-                                TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
-                                string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                                output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                <p class="closed">@output</p>
-                            }
+                            
+                    bool isBetween = false;
+                    DateTime firstDate = DateTime.Now.Date;
+                                firstDate = firstDate.Add(parking.OpeningHour.ToTimeSpan());
+
+                    DateTime secondDate = DateTime.Now.Date;
+                                secondDate = secondDate.Add(parking.ClosingHour.ToTimeSpan());
+
+                                if (parking.OpeningHour.ToTimeSpan() > parking.ClosingHour.ToTimeSpan())
+                    {
+                        secondDate = secondDate.AddDays(1);
+                    }
+                    if (DateTime.Now >= firstDate && DateTime.Now <= secondDate)
+                    {
+                        isBetween = true;
+                    }
+
+                                if (parking.IsNonStop || isBetween)
+                    {
+                                    if (parking.IsNonStop)
+                        {
+                                                        <p class="open">24/7 Open</p>
+                        }
+                        else
+                        {
+                                                        <p class="open">Open</p>
+                        }
+                    }
+                    else
+                    {
+                        TimeSpan ts = new TimeSpan(24, 0, 0);
+                                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                        string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                        output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                                                        <p class="closed">@output</p>
+                    }
+                
                         }
                         @if(parking.IsDeleted)
                         {
                             <p class="closed">Is Deleted</p>
                         }
+                        </div>
                         <div id="park-info-buttons">
                         <form method="get" asp-action="Edit" asp-controller="Parking">
                         <button id="edit" type="submit" value="@parking.Name" name="nameToEdit">Edit</button>
                         </form>
-                        <form method="get" asp-action="Reservations" asp-controller="Parking">
-                            <button id="edit" type="submit" value="@parking.Name" name="name">Check all reservations</button>
+                        <form method="get" asp-action="ParkingReservations" asp-controller="Admin">
+                            <button id="edit" type="submit" value="@parking.Id" name="parkingId">Check all reservations</button>
                         </form>
                         </div>
                     </div>
@@ -66,8 +93,8 @@
         <h1 id="control-page-title">Control Page</h1>
         <div id="button-wrapper">
         <a asp-action="Create" asp-controller="Parking">Create new parking</a>
-        <form method="get" asp-action="User" asp-controller="Admin">
-            <input id="search-bar" class="form-control" placeholder="Enter a user email" name="email">
+        <form method="get" asp-action="UserReservations" asp-controller="Admin">
+            <input id="search-bar" class="form-control" placeholder="Enter a user email, phone number or license plate number" name="searchQuery">
             <button type="submit" id="user-button">Check user info</button>
         </form>
         </div>
@@ -211,5 +238,10 @@
         overflow:hidden;
         overflow-y:scroll;
         height:calc(100vh - 118px);
+    }
+    div.card-body{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 </style>

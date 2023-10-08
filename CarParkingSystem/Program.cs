@@ -42,6 +42,7 @@ namespace CarParkingSystem
             //builder.Services.AddCors();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IParkingService, ParkingService>();
+            builder.Services.AddScoped<IReservationService,ReservationService>();
 
             builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
             

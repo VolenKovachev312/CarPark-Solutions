@@ -16,6 +16,6 @@ namespace CarParkingSystem.Models
 
         public string LicensePlateNumber { get; set; }
 
-        public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public IEnumerable<ReservationViewModel> Reservations { get; set; } = new List<ReservationViewModel>();
     }
 }

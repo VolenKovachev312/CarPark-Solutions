@@ -9,5 +9,8 @@ namespace CarParkingSystem.Contracts
         Task ChangeCarInfoAsync(string userId, string licensePlateNumber);
 
         Task<UserViewModel> GetUserViewModelAsync(string userId);
+
+        Task<UserViewModel> GetUserReservationsAsync(string searchQuery);
+
     }
 }

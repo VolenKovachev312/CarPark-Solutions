@@ -1,4 +1,5 @@
 ﻿using CarParkingSystem.Contracts;
+using CarParkingSystem.Models;
 using CarParkingSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -8,21 +9,28 @@ namespace CarParkingSystem.Controllers
     public class AdminController : Controller
     {
         private readonly IParkingService parkingService;
-        public AdminController(IParkingService parkingService)
+        private readonly IReservationService reservationService;
+        private readonly IUserService userService;
+        public AdminController(IParkingService parkingService, IReservationService reservationService, IUserService userService)
         {
             this.parkingService = parkingService;
+            this.reservationService = reservationService;
+            this.userService = userService;
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    var parkingLots = await parkingService.LoadParkingLotsAsync();
-        //    return View(parkingLots);
-        //}
         [HttpGet]
         public async Task<IActionResult> Index(string? search)
         {
-            var parkingLots = await parkingService.LoadParkingLotsAsync();
-            if(!search.IsNullOrEmpty())
+            IEnumerable<ParkingLotViewModel> parkingLots = new List<ParkingLotViewModel>();
+            try
+            {
+                parkingLots = await parkingService.LoadParkingLotsAsync();
+            }
+            catch
+            {
+                TempData["Error"] = "Could not load parking lots!";
+            }
+            if (!search.IsNullOrEmpty())
             {
                 ViewBag.Search = search;
             }
@@ -32,6 +40,35 @@ namespace CarParkingSystem.Controllers
             }
             return View(parkingLots);
         }
-        
+
+        public async Task<IActionResult> ParkingReservations(string parkingId)
+        {
+            IEnumerable<ReservationViewModel> reservations = new List<ReservationViewModel>();
+            try
+            {
+                reservations = await reservationService.GetReservationsByIdAsync(parkingId);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Parking not found!";
+            }
+            return View(reservations);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserReservations(string searchQuery)
+        {
+            var userViewModel = new UserViewModel();
+            try
+            {
+                userViewModel = await userService.GetUserReservationsAsync(searchQuery);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "User not found!";
+                return RedirectToAction("Index", "Admin");
+            }
+            return View(userViewModel);
+        }
     }
 }

@@ -20,7 +20,7 @@
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
-            user.LicensePlateNumber = licensePlateNumber;
+            user.LicensePlateNumber = licensePlateNumber.ToUpper();
             await context.SaveChangesAsync();
         }
 
@@ -31,7 +31,7 @@
             {
                 throw new ArgumentException("Can not use blank space as email.");
             }
-            if (context.Users.Any(u => u.Email == email))
+            if (context.Users.Any(u => u.Email.ToLower() == email.ToLower()))
             {
                 throw new ArgumentException("Email already in use.");
             }
@@ -61,6 +61,26 @@
                 LicensePlateNumber=user.LicensePlateNumber,
                 PhoneNumber=user.PhoneNumber,
             };
+        }
+        public async Task<UserViewModel> GetUserReservationsAsync(string searchQuery)
+        {
+            searchQuery = searchQuery.ToLower();
+            var user = await context.Users.Include(u => u.Reservations).ThenInclude(r => r.ParkingLot).FirstOrDefaultAsync(u => u.Email.ToLower() == searchQuery || u.LicensePlateNumber.ToLower() == searchQuery || u.PhoneNumber == searchQuery);
+            var reservations = user.Reservations.ToList();
+            var userViewModel =await GetUserViewModelAsync(user.Id.ToString());
+            userViewModel.Reservations = reservations.Select(r => new ReservationViewModel
+            {
+                Address = r.ParkingLot.Address,
+                CheckInTime = r.CheckInTime,
+                CheckOutTime = r.CheckOutTime,
+                ParkingName = r.ParkingLot.Name,
+                Price = r.Price,
+                ImageUrl = r.ParkingLot.ImageUrl,
+                IsCancelled = r.isCancelled,
+                ReservationId = r.Id,
+                LicensePlateNumber = r.LicensePlateNumber
+            }).ToList();
+            return userViewModel;
         }
     }
 }

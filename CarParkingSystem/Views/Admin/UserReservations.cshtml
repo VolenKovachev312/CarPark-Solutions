@@ -1,0 +1,144 @@
+﻿@model UserViewModel
+<div id="content-wrapper">
+    <div id="user-info">
+        <h2>@Model.FirstName.ToUpper() @Model.LastName.ToUpper()</h2>
+        <p>Email: @Model.Email</p>
+        <p>Phone Number: @Model.PhoneNumber</p>
+        <p>Reservation Count: @Model.Reservations.Count()</p>
+        <p>Total money spent: @Model.Reservations.Where(r=>r.IsCancelled==false).Sum(r=>r.Price)$</p>
+        <p>Cancelled Reservations: @Model.Reservations.Count(r=>r.IsCancelled)</p>
+        <p>Completed Reservations: @Model.Reservations.Where(r=>DateTime.Now>r.CheckOutTime&&r.IsCancelled==false).Count()</p>
+    </div>
+    <div id="card-wrapper">
+
+        @foreach (var booking in Model.Reservations.OrderBy(r => r.CheckInTime))
+        {
+            <div id="card">
+                <img src="@booking.ImageUrl">
+                <div id="description">
+                    <h2 id="parking-name">@booking.ParkingName.ToUpper()</h2>
+                    <p id="address">@booking.Address</p>
+                    <p id="time">
+                        Arrival: @booking.CheckInTime <br>
+                        Check-out: @booking.CheckOutTime
+                    </p>
+                    <p id="license">License Plate: @booking.LicensePlateNumber</p>
+                    @if (booking.IsCancelled)
+                    {
+                        <p id="cancelled">Canceled</p>
+
+                    }
+                    else
+                    {
+                        @if (DateTime.Now >= booking.CheckOutTime)
+                        {
+                            <p id="active">Completed</p>
+                        }
+                        else
+                        {
+                            <p id="active">Active</p>
+                        }
+                    }
+                    <div class="one-line-container">
+                        <p id="price">@booking.Price$</p>
+                        @if (!booking.IsCancelled && DateTime.Now <= booking.CheckOutTime)
+                        {
+                            <form asp-action="Cancel" asp-controller="User">
+                                <button value="@booking.ReservationId" type="submit" id="cancel" name="reservationId">Cancel</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    div#user-info{
+        margin-top:16px;
+        padding:32px;
+        width:15%;
+        border:solid 1px black;
+        height:50vh;
+        
+    }
+    div#user-info>p{
+        font-size:1.5em;
+    }
+    p#license {
+        font-weight: bold;
+    }
+
+    div#content-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    div.one-line-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h2 {
+        font-weight: bold;
+    }
+
+    div#card {
+        display: flex;
+        height: 25vh;
+        border: solid 1px black;
+        width: 100%;
+    }
+
+    div#description {
+        width: 100%;
+        padding: 16px;
+    }
+
+    img {
+        width: 320px;
+    }
+
+    p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    div#card-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: calc(100vh - 124px);
+        overflow: hidden;
+        overflow-y: scroll;
+        width: 50vw;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    button#cancel {
+        border: solid 1px red;
+        border-radius: 32px;
+        background-color: red;
+        color: white;
+        padding: 2px 24px;
+        align-self: end;
+    }
+
+        button#cancel:hover {
+            border: solid 1px darkred;
+            background-color: darkred;
+        }
+
+    p#active {
+        color: forestgreen;
+        font-weight: bold;
+    }
+
+    p#cancelled {
+        color: red;
+        font-weight: bold;
+    }
+</style>

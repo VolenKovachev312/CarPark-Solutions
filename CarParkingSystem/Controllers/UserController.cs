@@ -15,22 +15,20 @@ namespace CarParkingSystem.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
-
         private readonly SignInManager<User> signInManager;
-
-        private readonly IHttpContextAccessor context;
-
         private readonly IUserService userService;
+        private readonly IReservationService reservationService;
+
         public UserController(
                 UserManager<User> _userManager,
                 SignInManager<User> _signInManager,
-                IHttpContextAccessor _context,
-                IUserService _userService)
+                IUserService _userService,
+                IReservationService _reservationService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            context = _context;
             userService = _userService;
+            reservationService = _reservationService;
         }
 
         [AllowAnonymous]
@@ -223,6 +221,41 @@ namespace CarParkingSystem.Controllers
             var user = await userManager.FindByIdAsync(userId);
             await userManager.DeleteAsync(user);
             return RedirectToAction("Logout");
+        }
+
+        public async Task<IActionResult> Reservations()
+        {
+            IEnumerable<ReservationViewModel> model;
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+                model = await reservationService.GetUserReservationsByIdAsync(userId);
+            }
+            catch(Exception e)
+            {
+                TempData["Error"] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Cancel(string reservationId)
+        {
+            try
+            {
+                await reservationService.CancelReservationAsync(reservationId);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Something went wrong!";
+                return RedirectToAction("Reservations", "User");
+            }
+            if(User.IsInRole("User"))
+            {
+                return RedirectToAction("Reservations", "User");
+            }
+            return RedirectToAction("ParkingReservations", "Admin");
         }
     }
 }

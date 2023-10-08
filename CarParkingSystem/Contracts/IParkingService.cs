@@ -12,6 +12,5 @@ namespace CarParkingSystem.Contracts
 
         Task EditParkingLotAsync(string name, ParkingLotViewModel model);
 
-        Task CreateReservationAsync(ReserveViewModel model);
     }
 }

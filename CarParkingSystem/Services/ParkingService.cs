@@ -42,26 +42,11 @@ namespace CarParkingSystem.Services
 
         }
 
-        public async Task CreateReservationAsync(ReserveViewModel model)
-        {
-            var userViewModel = model.UserViewModel;
-            var parkingLotViewModel = model.ParkingLotViewModel;
-            var reservation = new Reservation()
-            {
-                UserId = userViewModel.Id,
-                ParkingLotId = parkingLotViewModel.Id,
-                Email = userViewModel.Email,
-                CheckInTime = model.CheckInHour,
-                CheckOutTime = model.CheckOutHour,
-                Price=model.Price
-            };
-            await context.Reservations.AddAsync(reservation);
-            await context.SaveChangesAsync();
-        }
+       
 
         public async Task EditParkingLotAsync(string nameToEdit, ParkingLotViewModel model)
         {
-            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p=>p.Name == nameToEdit);
+            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p=>p.Name.ToLower() == nameToEdit.ToLower());
             if (parkingLot == null)
             {
                 throw new ArgumentException("Parking lot with this name does not exist!");
@@ -128,9 +113,13 @@ namespace CarParkingSystem.Services
 
         public async Task<ParkingLotViewModel> GetParkingLotAsync(string nameToEdit)
         {
-            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name == nameToEdit);
+            var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name.ToLower() == nameToEdit.ToLower());
             try
             {
+                if(parkingLot.IsDeleted)
+                {
+                    throw new ArgumentException();
+                }
                 var parkingLotViewModel = new ParkingLotViewModel()
                 {
                     Id = parkingLot.Id,
@@ -163,6 +152,7 @@ namespace CarParkingSystem.Services
             var parkingLots = await context.ParkingLots.ToListAsync();
             return parkingLots.Select(p => new ParkingLotViewModel()
             {
+                Id=p.Id,
                 Name= p.Name,
                 Capacity = p.Capacity,
                 HourlyRate=p.HourlyRate,

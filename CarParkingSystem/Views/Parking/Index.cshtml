@@ -7,14 +7,7 @@
 @model IEnumerable<ParkingLotViewModel>;
 <link rel="stylesheet" href="~/css/locations.css" />
 <script src="~/js/site.js"></script>
- @if (TempData["Message"] != null)
-                    {
-                        <script type="text/javascript">
-                            window.onload = function () {
-                                alert('@TempData["Message"]');
-                            };
-                        </script>
-                    }
+
 
 <div id="content-wrapper">
     <div id="location-input">
@@ -92,67 +85,33 @@
                             <p>Working Hours: @item.OpeningHour - @item.ClosingHour</p>
                 }
 
-                @if (item.ClosingHour < item.OpeningHour)
-                {
-                    if(DateTime.Now.TimeOfDay<= new TimeSpan(24,0,0))
-                    {
-                        if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay >= item.ClosingHour.ToTimeSpan()))
-                        {
-                            if (item.IsNonStop)
-                            {
 
-                                                                                                    <p class="open">24/7 Open</p>
-                            }
-                            else
-                            {
-                                                                                                    <p class="open">Open</p>
-                            }
-                        }
-                        else
-                        {
-                            TimeSpan ts = new TimeSpan(24, 0, 0);
-                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
-                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                            <p class="closed">@output</p>
-                        }
-                    }
-                    else
-                    {
-                        if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
-                        {
-                            if (item.IsNonStop)
-                            {
+                @{
+                    bool isBetween = false;
+                    DateTime firstDate = DateTime.Now.Date;
+                    firstDate = firstDate.Add(item.OpeningHour.ToTimeSpan());
 
-                                                                                                    <p class="open">24/7 Open</p>
-                            }
-                            else
-                            {
-                                                                                                    <p class="open">Open</p>
-                            }
-                        }
-                        else
-                        {
-                            TimeSpan ts = new TimeSpan(24, 0, 0);
-                            TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
-                            string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                            output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                                                        <p class="closed">@output</p>
-                        }
+                    DateTime secondDate = DateTime.Now.Date;
+                    secondDate = secondDate.Add(item.ClosingHour.ToTimeSpan());
+
+                    if (item.OpeningHour.ToTimeSpan() > item.ClosingHour.ToTimeSpan())
+                    {
+                        secondDate = secondDate.AddDays(1);
                     }
-                    
-                }
-                else
-                {
-                    if (item.IsNonStop || (DateTime.Now.TimeOfDay >= item.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= item.ClosingHour.ToTimeSpan()))
+                    if (DateTime.Now >= firstDate && DateTime.Now <= secondDate)
+                    {
+                        isBetween = true;
+                    }
+
+                    if (item.IsNonStop || isBetween)
                     {
                         if (item.IsNonStop)
                         {
-                                                                                                    <p class="open">24/7 Open</p>
+                                                        <p class="open">24/7 Open</p>
                         }
                         else
                         {
-                                                                                                    <p class="open">Open</p>
+                                                        <p class="open">Open</p>
                         }
                     }
                     else
@@ -161,7 +120,7 @@
                         TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + item.OpeningHour.ToTimeSpan();
                         string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
                         output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                                                        <p class="closed">@output</p>
+                                                                                        <p class="closed">@output</p>
                     }
                 }
                         <form method="get" asp-action="Reserve" asp-controller="Parking">
@@ -308,52 +267,44 @@
 
                         }
                         <div id="open-closed-reserve">
-                            
-                            @if (parking.ClosingHour < parking.OpeningHour)
-                            {
-                                if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay >= parking.ClosingHour.ToTimeSpan()))
+
+                            @{
+                                bool isBetween = false;
+                                DateTime firstDate = DateTime.Now.Date;
+                                firstDate=firstDate.Add(parking.OpeningHour.ToTimeSpan());
+
+                                DateTime secondDate = DateTime.Now.Date;
+                                secondDate=secondDate.Add(parking.ClosingHour.ToTimeSpan());
+
+                                if(parking.OpeningHour.ToTimeSpan()>parking.ClosingHour.ToTimeSpan())
                                 {
-                                    if (parking.IsNonStop)
-                                    {
-                                                        <p class="open">24/7 Open</p>
-                                    }
-                                    else
-                                    {
-                                                        <p class="open">Open</p>
-                                    }
+                                    secondDate=secondDate.AddDays(1);
+                                }
+                                if(DateTime.Now>=firstDate&&DateTime.Now<=secondDate)
+                                {
+                                    isBetween = true;
+                                }
+                            
+                            if (parking.IsNonStop || isBetween)
+                            {
+                                if (parking.IsNonStop)
+                                {
+                                    <p class="open">24/7 Open</p>
                                 }
                                 else
                                 {
-                                    TimeSpan ts = new TimeSpan(24, 0, 0);
-                                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
-                                    string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                                    output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                    <p class="closed">@output</p>
+                                    <p class="open">Open</p>
                                 }
                             }
                             else
                             {
-                                if (parking.IsNonStop || (DateTime.Now.TimeOfDay >= parking.OpeningHour.ToTimeSpan() && DateTime.Now.TimeOfDay <= parking.ClosingHour.ToTimeSpan()))
-                                {
-                                    if (parking.IsNonStop)
-                                    {
-                                                                                <p class="open">24/7 Open</p>
-                                    }
-                                    else
-                                    {
-                                                                                <p class="open">Open</p>
-                                    }
-                                }
-                                else
-                                {
-                                    TimeSpan ts = new TimeSpan(24, 0, 0);
-                                    TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
-                                    string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
-                                    output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
-                                                        <p class="closed">@output</p>
-                                }
+                                TimeSpan ts = new TimeSpan(24, 0, 0);
+                                TimeSpan timeUntil = ts - DateTime.Now.TimeOfDay + parking.OpeningHour.ToTimeSpan();
+                                string output = timeUntil.Hours > 9 ? $"Closed (Opens in {@timeUntil.ToString(@"hh")} hours)" : $"Closed (Opens in {timeUntil.ToString(@"hh")[1]} hours)";
+                                output = timeUntil.Hours <= 1 ? $"Closed (Opens in 1 hour)" : output;
+                                                                        <p class="closed">@output</p>
                             }
-
+                            }
                         <form method="get" asp-action="Reserve" asp-controller="Parking">
                         <button id="reserve"  name="parkingName" value="@parking.Name">Reserve now</button>
                         </form>

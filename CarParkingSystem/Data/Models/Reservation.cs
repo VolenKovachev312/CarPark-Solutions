@@ -13,7 +13,6 @@ namespace CarParkingSystem.Data.Models
         public Guid ParkingLotId { get; set; }
         public virtual ParkingLot ParkingLot { get; set; }
 
-
         [ForeignKey(nameof(User))]
         public Guid? UserId { get; set; }
         public virtual User? User { get; set; }
@@ -24,6 +23,11 @@ namespace CarParkingSystem.Data.Models
         [Required]
         public string Email { get; set; }
 
+        public string FullName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string LicensePlateNumber { get; set; }
         [Required]
         public DateTime ReservationTime { get; set; } = DateTime.Now;
 
@@ -34,8 +38,7 @@ namespace CarParkingSystem.Data.Models
         public DateTime CheckOutTime { get; set; }
 
         [Required]
-        public StatusEnum Status { get; set; } = StatusEnum.Active;
-
+        public bool isCancelled { get; set; } = false;
 
     }
 }

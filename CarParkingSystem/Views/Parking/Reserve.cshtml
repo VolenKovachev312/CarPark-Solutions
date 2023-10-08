@@ -8,14 +8,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <form id="reservationForm" asp-action="Reserve" asp-controller="Parking">
 
-@if (TempData["Error"] != null)
-{
-    <script type="text/javascript">
-        window.onload = function () {
-            alert('@TempData["Error"]');
-        };
-    </script>
-}
 <div id="page-wrapper">
     
     <div id="info-form">
@@ -32,7 +24,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @if(SignInManager.IsSignedIn(User))
             {
-            <input type="hidden" asp-for="@Model.UserViewModel.Id" value="@Model.UserViewModel.Id"/>
+            <input type="hidden" asp-for="@Model.UserId" value="@Model.UserId"/>
             }
             <input type="hidden" asp-for="@Model.ParkingLotViewModel.Id" value="@Model.ParkingLotViewModel.Id" />
             <input type="hidden" asp-for="@Model.ParkingLotViewModel.Name" value="@Model.ParkingLotViewModel.Name"/>
@@ -47,35 +39,43 @@
             <input type="hidden" asp-for="@Model.ParkingLotViewModel.Address" value="@Model.ParkingLotViewModel.Address"/>
 
             <div class="form-outline mb-4">
-                <label asp-for="@Model.UserViewModel.Email">Email</label>
-                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.UserViewModel.Email" placeholder="ex - johnsmith@gmail.com" />
-                <span asp-validation-for="@Model.UserViewModel.Email" class="text-danger"></span>
+                <label asp-for="@Model.Email">Email</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" asp-for="@Model.Email" placeholder="ex - johnsmith@gmail.com" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                <input type="hidden" asp-for="@Model.Email" value="@Model.Email" />
+
             </div>
+
             <div id="one-line-container">
                 <div class="form-outline mb-4">
-                    <label asp-for="@Model.UserViewModel.FirstName">First Name</label>
-                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" asp-for="@Model.UserViewModel.FirstName" placeholder="John" />
-                    <span asp-validation-for="@Model.UserViewModel.FirstName" class="text-danger"></span>
+                    <label asp-for="@Model.FirstName">First Name</label>
+                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" asp-for="@Model.FirstName" placeholder="John" />
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    <input type="hidden" asp-for="@Model.FirstName" value="@Model.FirstName" />
+
                 </div>
                 <div class="form-outline mb-4">
-                    <label asp-for="@Model.UserViewModel.LastName">Last Name</label>
-                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" asp-for="@Model.UserViewModel.LastName" placeholder="Smith" />
-                    <span asp-validation-for="@Model.UserViewModel.LastName" class="text-danger"></span>
+                    <label asp-for="@Model.LastName">Last Name</label>
+                    <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" asp-for="@Model.LastName" placeholder="Smith" />
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    <input type="hidden" asp-for="@Model.LastName" value="@Model.LastName" />
+
                 </div>
             </div>
             <div class="form-outline mb-4">
-                <label asp-for="@Model.UserViewModel.PhoneNumber">Phone Number</label>
-                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="phonenumber" aria-required="true" asp-for="@Model.UserViewModel.PhoneNumber" placeholder="+359023023023" />
-                <span asp-validation-for="@Model.UserViewModel.PhoneNumber" class="text-danger"></span>
+                <label asp-for="@Model.PhoneNumber">Phone Number</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="phonenumber" aria-required="true" asp-for="@Model.PhoneNumber" placeholder="+359023023023" />
+                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                <input type="hidden" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" />
             </div>
 
         <h2>VEHICLE INFORMATION</h2>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-outline mb-4">
-                <label asp-for="@Model.UserViewModel.LicensePlateNumber">License Plate Number</label>
-                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="licenseplate" aria-required="true" asp-for="@Model.UserViewModel.LicensePlateNumber" placeholder="EN2340PD" />
-                <span asp-validation-for="@Model.UserViewModel.LicensePlateNumber" class="text-danger"></span>
+                <label asp-for="@Model.LicensePlateNumber">License Plate Number</label>
+                <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="licenseplate" aria-required="true" asp-for="@Model.LicensePlateNumber" placeholder="EN2340PD" />
+                <span asp-validation-for="@Model.LicensePlateNumber" class="text-danger"></span>
             </div>
         <h2>PAYMENT INFORMATION</h2>
         <p id="warning">SKIP THIS SECTION FOR TESTING PURPOSES</p>

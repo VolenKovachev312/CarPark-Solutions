@@ -13,10 +13,12 @@ namespace CarParkingSystem.Controllers
     {
         private readonly IParkingService parkingService;
         private readonly IUserService userService;
-        public ParkingController(IParkingService parkingService,IUserService userService)
+        private readonly IReservationService reservationService;
+        public ParkingController(IParkingService parkingService,IUserService userService, IReservationService reservationService)
         {
             this.parkingService = parkingService;
             this.userService = userService;
+            this.reservationService = reservationService;
         }
 
         [HttpGet]
@@ -101,17 +103,22 @@ namespace CarParkingSystem.Controllers
             ReserveViewModel model = new ReserveViewModel();
             try
             {
-                var parkingLot= await parkingService.GetParkingLotAsync(parkingName);
+                var parkingLot = await parkingService.GetParkingLotAsync(parkingName);
 
                 model.ParkingLotViewModel = parkingLot;
                 var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
                 {
                     var user = await userService.GetUserViewModelAsync(userId);
-                    model.UserViewModel = user;
-                   
+                    model.LicensePlateNumber = user.LicensePlateNumber;
+                    model.FirstName = user.FirstName;
+                    model.LastName = user.LastName;
+                    model.PhoneNumber = user.PhoneNumber;
+                    model.Email = user.Email;
+                    model.UserId = Guid.Parse(userId);
+
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -145,7 +152,7 @@ namespace CarParkingSystem.Controllers
             closeDate += model.ParkingLotViewModel.ClosingHour.ToTimeSpan();
             if(model.ParkingLotViewModel.OpeningHour>model.ParkingLotViewModel.ClosingHour)
             {
-                closeDate.AddDays(1);
+                closeDate=closeDate.AddDays(1);
             }
             if(model.ParkingLotViewModel.IsNonStop==false&&(model.CheckInHour<openDate ||model.CheckOutHour>closeDate))
             {
@@ -154,16 +161,16 @@ namespace CarParkingSystem.Controllers
             }
             try
             {
-                await parkingService.CreateReservationAsync(model);
+                await reservationService.CreateReservationAsync(model);
             }
             catch (Exception e)
             {
-                TempData["Error"] = e.Message;
+                TempData["Error"] = "Error! Could not create reservation!";
                 return View(model);
             }
             if(User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Account", "User");
+                return RedirectToAction("Reservations", "User");
             }
             TempData["Messsage"] = "Successfully made a reservation!";
             return RedirectToAction("Index", "Home");
