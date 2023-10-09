@@ -5,7 +5,7 @@
     var apiKey = Configuration.GetValue(typeof(string), "GoogleApiKey");
 }
 @model IEnumerable<ParkingLotViewModel>;
-<link rel="stylesheet" href="~/css/locations.css" />
+<link rel="stylesheet" href="~/css/Parking/index.css" />
 <script src="~/js/site.js"></script>
 
 
@@ -77,6 +77,7 @@
             var infowindow = new google.maps.InfoWindow();
             google.maps.event.addListener(marker, "click", () => {
                 infowindow.setContent(`<div id="info-window">
+                <img id="marker-image" src="@item.ImageUrl">
                 <h2 class="ui header">@item.Name</h2>
                 <p>@item.Address</p>
                 <p>Hourly Rate: @item.HourlyRate$</p>
@@ -340,126 +341,3 @@
         }
 }        
 </script>
-<style>
-    @@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@300;400;700&family=Work+Sans:wght@600&display=swap');
-    html{
-        height:100vh;
-    }
-    div#open-closed-reserve{
-        display:flex;
-        justify-content:space-between;
-    }
-    button#reserve{
-        text-decoration:none;
-        margin-right:8px;
-        color:dodgerblue;
-        padding:0;
-    }
-    div#location-list{
-        height:60vh;
-        overflow:hidden;
-        overflow-y:scroll;
-    }
-    p, h2 {
-        margin-bottom: 0;
-        text-align: start;
-    }
-
-    hr {
-        margin: 6px -20px;
-    }
-
-    div#location-list {
-        margin-top: 40px;
-    }
-
-    div#card-container {
-        font-family: 'Roboto Condensed';
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    img#card-img {
-        width: 25%;
-        object-fit: cover;
-    }
-
-    div#content-wrapper {
-        display: flex;
-        height: calc(100vh - 118px);
-    }
-
-    div#map {
-        height: 100%;
-        width: 70%;
-        border-left: 1px solid #343538;
-    }
-
-    button#near-me {
-        display: flex;
-        text-align: center;
-        margin: auto;
-        background-color: coral;
-        padding: 6px 24px;
-        border: solid coral 1px;
-        border-radius: 32px;
-        font-size: 1em;
-        color: white;
-        font-weight: 500;
-        margin-bottom: 15px;
-    }
-
-    div#location-input {
-        width: 30%;
-        height: 200px;
-        text-align: center;
-        padding: 16px;
-        border-bottom: 1px solid gray;
-    }
-
-
-    label.form-label {
-        font-size: 2em;
-        font-family: 'Roboto Condensed';
-    }
-
-    input {
-        border-radius: 32px !important;
-    }
-
-    div#search-bar {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-    }
-
-        button#near-me:hover {
-        background-color: orangered;
-            border: solid orangered 1px;
-            transition: all ease-out 0.2s;
-        }
-
-
-    p.closed {
-        color: red;
-    }
-
-    p.open {
-        color: forestgreen;
-    }
-
-    div#info-window {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        width: 14em;
-    }
-
-        div#info-window > h2 {
-            font-size: 16px;
-        }
-
-        div#info-window > p {
-            margin-bottom: 0.5em;
-        }
-</style>

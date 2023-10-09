@@ -1,4 +1,5 @@
 ﻿@model AccountViewModel
+<link rel="stylesheet" href="~/css/User/account.css" />
     <div class="mask d-flex align-items-center h-100 gradient-custom-3 mt-5">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -12,6 +13,10 @@
                     {
                         <p class="message-success"> @TempData["EmailChanged"] </p>
                     }
+                    @if (TempData["EmailError"] != null)
+                    {
+                        <p class="message-error"> @TempData["EmailError"] </p>
+                    }
                         <div class="form-outline mb-5 email">
                             <input id="form3Example3cg" value="@Model.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" asp-for="@Model.Email" name="Email" />
                             <span asp-validation-for="@Model.Email" class="text-danger"></span>
@@ -21,6 +26,10 @@
                     @if (TempData["PasswordChanged"] != null)
                     {
                         <p class="message-success"> @TempData["PasswordChanged"] </p>
+                    }
+                    @if (TempData["PasswordError"] != null)
+                    {
+                        <p class="message-error"> @TempData["PasswordError"] </p>
                     }
                     <div class="form-outline mb-4 passwordChange">
                             <input id="form3Example3cg" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" asp-for="@Model.OldPassword"  />
@@ -36,6 +45,10 @@
                     @if (TempData["CarInfoChanged"] != null)
                     {
                         <p class="message-success"> @TempData["CarInfoChanged"] </p>
+                    }
+                    @if (TempData["CarInfoError"] != null)
+                    {
+                        <p class="message-error"> @TempData["CarInfoError"] </p>
                     }
                        
                     <label asp-for="@Model.LicensePlateNumber">License Plate Number</label>
@@ -53,38 +66,4 @@
         </div>
     </div>
 
-<style>
-    .deleteaccount{
-       margin-bottom:20px;
-    }
-    .message-success{
-        color:lawngreen;
-    }
-
-    .btn-changePassword{
-        align-self:center;
-    }
-    /*button{
-        width:30%;
-    }*/
-    .form-outline{
-        display:flex;
-        justify-content:space-between;
-        gap:20px;
-        align-items:center;
-    }
-    .col-xl-6{
-        width:100% !important;
-        align-items:center;
-    }
-    .passwordChange{
-        flex-direction:column;
-        align-items:start;
-    }
-    .carinfo, .email{
-        flex-direction: column;
-    }
-    .passwordChange>button{
-        align-self:center;
-    }
-</style>                         
+                        

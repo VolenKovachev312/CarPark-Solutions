@@ -1,0 +1,62 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+button#registerSubmit {
+    background-color: coral;
+    border: coral solid 1px;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 32px;
+    font-size: 1.5em;
+    flex-grow: inherit;
+}
+
+button#registerSubmit:hover {
+    background-color: orangered;
+    border: orangered solid 1px;
+    transition: all 0.1s ease-in;
+}
+
+div.form-outline.mb-4 {
+    width: 100%;
+}
+
+u {
+    color: coral;
+}
+
+    u:hover {
+        color: orangered;
+    }
+
+div#name-fields {
+    display: flex;
+    width: 100%;
+    gap: 32px;
+}
+
+input#form3Example3cg {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    padding: 0;
+}
+
+    input#form3Example3cg:focus {
+        box-shadow: none;
+        border-color: coral;
+        transition: all 0.25s ease-in;
+    }
+
+label {
+    font-weight: bold;
+}
+
+input#form3Example3cg::placeholder {
+    font-weight: 100;
+    color: lightgray
+}
+
+h2 {
+    font-weight: bold;
+}
+

@@ -12,5 +12,6 @@ namespace CarParkingSystem.Contracts
 
         Task<UserViewModel> GetUserReservationsAsync(string searchQuery);
 
+        Task DeleteUserAsync(string userId);
     }
 }

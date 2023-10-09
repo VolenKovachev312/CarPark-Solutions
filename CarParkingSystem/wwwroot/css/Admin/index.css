@@ -1,0 +1,130 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+a:hover {
+    color: white;
+}
+
+div#park-info-buttons {
+    display: flex;
+    justify-content: start;
+}
+
+h1 {
+    margin-bottom: 50px;
+    padding-bottom: 16px;
+}
+
+div#button-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    border: solid #343538 1px;
+    background-color: #343538;
+    font-size: 1.5em;
+    padding: 4px 16px;
+}
+
+h1#control-page-title {
+    margin-top: 50px;
+    border-bottom: 1px solid #343538;
+}
+
+div#control-page {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+button#edit {
+    border: solid #343538 1px;
+    background-color: #343538;
+    color: white;
+    margin-top: 20px;
+    font-size: 1.5em;
+    padding: 4px 16px;
+}
+
+form {
+    width: 100%;
+    gap: 16px;
+    display: flex;
+}
+
+button#search-button, button#user-button {
+    padding: 8px 16px;
+    background-color: #343538;
+    color: white;
+}
+
+button#user-button {
+    width: 40%;
+}
+
+div#control-page {
+    width: 30%;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+p {
+    font-size: 1em;
+    margin-bottom: auto;
+}
+
+    p#non-stop, p.open {
+        color: forestgreen;
+    }
+
+    p.closed {
+        color: red;
+    }
+
+div.card-content {
+    padding: 0;
+    display: flex;
+    border-top: 1px solid #343538;
+    border-bottom: 1px solid #343538;
+    border-right: 1px solid #343538;
+}
+
+div.card-wrapper {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+img {
+    width: 35%;
+    object-fit: cover;
+}
+
+div#page {
+    display: flex;
+    gap: 10%;
+}
+
+div#locations {
+    width: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 118px);
+}
+
+div.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+

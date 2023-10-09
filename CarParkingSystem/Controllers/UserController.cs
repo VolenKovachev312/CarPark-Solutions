@@ -120,7 +120,7 @@ namespace CarParkingSystem.Controllers
 
             var user = await userManager.FindByNameAsync(model.Email);
 
-            if (user != null)
+            if (user != null&&user.isDeleted==false)
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
@@ -128,10 +128,9 @@ namespace CarParkingSystem.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                return View(model);
             }
-
-            ModelState.AddModelError("", "Invalid login");
-
+            TempData["LoginError"] = "Email and password do not match!";
             return View(model);
         }
 
@@ -164,7 +163,7 @@ namespace CarParkingSystem.Controllers
             }
             catch(ArgumentException e)
             {
-                TempData["Message"] = e.Message;
+                TempData["EmailError"] = e.Message;
                 return RedirectToAction("Account");
             }
             TempData["EmailChanged"] = "Successfully changed email!";
@@ -180,14 +179,14 @@ namespace CarParkingSystem.Controllers
             var passValidator = new PasswordValidator<User>();
             if(string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword))
             {
-                TempData["Message"] = "Fill out all password fields!";
+                TempData["Error"] = "Fill out all password fields!";
                 return RedirectToAction("Account");
             }
             var passwordValidationResult = await passValidator.ValidateAsync(userManager, null, oldPassword);
 
             if (!passwordValidationResult.Succeeded)
             {
-                TempData["Message"] = "Current password incorrect!";
+                TempData["Error"] = "Current password incorrect!";
                 return RedirectToAction("Account");
             }
             if (newPassword == confirmNewPassword)
@@ -198,7 +197,7 @@ namespace CarParkingSystem.Controllers
             }
             else
             {
-                TempData["Message"] = "New password does not match confirmation.";
+                TempData["Error"] = "New password does not match confirmation.";
                 return RedirectToAction("Account");
             }
             TempData["PasswordChanged"] = "Successfully changed password!";
@@ -208,8 +207,16 @@ namespace CarParkingSystem.Controllers
         public async Task<IActionResult> ChangeCarInfo(AccountViewModel viewModel)
         {
             var userId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+            try
+            {
+                await userService.ChangeCarInfoAsync(userId, viewModel.LicensePlateNumber);
 
-            await userService.ChangeCarInfoAsync(userId, viewModel.LicensePlateNumber);
+            }
+            catch (ArgumentException e)
+            {
+                TempData["CarInfoError"]=e.Message;
+                return RedirectToAction("Account");
+            }
 
             TempData["CarInfoChanged"] = "Successfuly changed car information!";
             return RedirectToAction("Account");
@@ -218,8 +225,15 @@ namespace CarParkingSystem.Controllers
         public async Task<IActionResult> DeleteAccount()
         {
             var userId = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
-            var user = await userManager.FindByIdAsync(userId);
-            await userManager.DeleteAsync(user);
+            try
+            {
+                await userService.DeleteUserAsync(userId);
+            }
+            catch(ArgumentException e) 
+            {
+                TempData["Error"]=e.Message;
+                return RedirectToAction("Account");
+            }
             return RedirectToAction("Logout");
         }
 

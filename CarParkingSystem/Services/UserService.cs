@@ -5,6 +5,7 @@
     using CarParkingSystem.Models;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
     using System;
     using System.Threading.Tasks;
 
@@ -19,7 +20,10 @@
         public async Task ChangeCarInfoAsync(string userId, string licensePlateNumber)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
+            if(licensePlateNumber.IsNullOrEmpty())
+            {
+                throw new ArgumentException("Fill license plate field!");
+            }
             user.LicensePlateNumber = licensePlateNumber.ToUpper();
             await context.SaveChangesAsync();
         }
@@ -81,6 +85,17 @@
                 LicensePlateNumber = r.LicensePlateNumber
             }).ToList();
             return userViewModel;
+        }
+
+        public async Task DeleteUserAsync(string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            if(user == null)
+            {
+                throw new ArgumentException("Could not delete user!");
+            }
+            user.isDeleted= true;
+            await context.SaveChangesAsync();
         }
     }
 }

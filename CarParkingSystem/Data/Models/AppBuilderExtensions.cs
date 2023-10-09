@@ -51,7 +51,8 @@ namespace CarParkingSystem.Data.Models
                 Email = "testuser@gmail.com",
                 FirstName = "User",
                 LastName = "User",
-                PhoneNumber = "0999888777"
+                PhoneNumber = "0999888777",
+                LicensePlateNumber="US1111ER"
             };
             await userManager.CreateAsync(testUser, "testpassword");
             await userManager.AddToRoleAsync(testUser, "User");
@@ -69,7 +70,8 @@ namespace CarParkingSystem.Data.Models
                 Email = "testadmin@gmail.com",
                 FirstName = "Admin",
                 LastName = "Admin",
-                PhoneNumber = "0999888777"
+                PhoneNumber = "0999888777",
+                LicensePlateNumber="AD2222MN"
             };
             await userManager.CreateAsync(testAdmin, "testpassword");
             await userManager.AddToRoleAsync(testAdmin, "Admin");

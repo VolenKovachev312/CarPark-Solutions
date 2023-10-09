@@ -1,0 +1,148 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+div#info-logged {
+    background-color: lightgray;
+    padding: 16px;
+}
+
+div#info-logged > p {
+    margin-bottom: 0px;
+}
+
+div#info-logged > h3 {
+    margin-top: 0px;
+    font-size: 1.5em;
+}
+
+p#open {
+    color: forestgreen;
+}
+
+.mb-3 {
+    width: 100%;
+}
+
+div#description {
+    padding: 0px 32px;
+}
+
+p#address {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 3em;
+    margin-top: 32px;
+}
+
+p#review {
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: coral;
+    color: white;
+    padding: 8px 16px;
+    margin-bottom: auto;
+}
+
+img {
+    width: 100%;
+    height: 35%;
+    object-fit: cover;
+}
+
+div#reservation-info {
+    width: 30%;
+    box-shadow: -4px 0px 5px 0px rgba(184,184,184,0.38);
+}
+
+div#not-logged-in {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    color: coral;
+    font-weight: bold;
+    margin-bottom: 32px;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}
+
+    div#not-logged-in > a, button#submit {
+        font-size: 1.5em;
+        color: white;
+        text-decoration: none;
+        border: 1px solid coral;
+        border-radius: 32px;
+        background-color: coral;
+        padding: 2px 24px;
+    }
+
+button#submit {
+    height: 57px;
+    margin-top: 32px;
+}
+
+    div#not-logged-in > a:hover, button#submit:hover {
+        color: white;
+        background-color: orangered;
+    }
+
+p#already {
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+p#warning {
+    color: red;
+}
+
+h2 {
+    margin-bottom: 0;
+    margin-top: 32px;
+    font-weight: bold;
+}
+
+div#page-wrapper {
+    display: flex;
+    justify-content: end;
+    gap: 32px;
+}
+
+div#info-form {
+    width: 40%;
+}
+
+div.form-outline.mb-4 {
+    width: 100%;
+}
+
+div#one-line-container {
+    display: flex;
+    width: 100%;
+    gap: 32px;
+    align-items: center;
+}
+
+#form3Example3cg {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    padding: 0;
+}
+
+input#form3Example3cg:focus {
+    box-shadow: none;
+    border-color: coral;
+    transition: all 0.25s ease-in;
+}
+
+label {
+    font-weight: bold;
+}
+
+input#form3Example3cg::placeholder {
+    font-weight: 100;
+    color: lightgray
+}
+

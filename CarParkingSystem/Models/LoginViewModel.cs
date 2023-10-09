@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using static CarParkingSystem.Constants.Constants.ErrorMessage;
 namespace CarParkingSystem.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        public string Email { get; set; } = null!;
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = null!;
+        public string Password { get; set; }
     }
 }

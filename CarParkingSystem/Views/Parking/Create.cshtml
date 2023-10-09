@@ -5,6 +5,7 @@
     var apiKey = Configuration.GetValue(typeof(string), "GoogleApiKey");
 }
 @model ParkingLotViewModel
+<link rel="stylesheet" href="~/css/Parking/create.css" />
 <div id="main">
     <div id="form">
         <form method="post">
@@ -131,36 +132,3 @@
     </script>
 
 
-<style>
-    div#main {
-        display: flex;
-        flex-direction: row;
-        gap: 10%;
-        justify-content: center;
-        margin-top: 50px;
-    }
-
-    div.form-check {
-        margin-top: 20px;
-    }
-
-    div#map {
-        width: 600px;
-        height: 400px;
-    }
-
-
-    .form-control {
-        width: 500px;
-    }
-
-    button#submit {
-        margin-top: 25px;
-        margin-bottom:25px;
-    }
-
-    input#latitude, input#longitude, input#address {
-        pointer-events: none;
-        background-color: lightgray;
-    }
-</style>

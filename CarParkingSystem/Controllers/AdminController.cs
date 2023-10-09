@@ -1,11 +1,13 @@
 ﻿using CarParkingSystem.Contracts;
 using CarParkingSystem.Models;
 using CarParkingSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CarParkingSystem.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private readonly IParkingService parkingService;

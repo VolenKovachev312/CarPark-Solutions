@@ -1,0 +1,32 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+div#main {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+div.form-check {
+    margin-top: 20px;
+}
+
+div#map {
+    width: 600px;
+    height: 400px;
+}
+
+
+.form-control {
+    width: 500px;
+}
+
+button#submit {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+input#latitude, input#longitude, input#address {
+    pointer-events: none;
+    background-color: lightgray;
+}

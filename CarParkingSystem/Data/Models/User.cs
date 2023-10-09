@@ -16,6 +16,9 @@ namespace CarParkingSystem.Data.Models
         [StringLength(LastNameLengthMax, MinimumLength = LastNameLengthMin)]
         public string LastName { get; set; }
 
+        [Required]
+        public bool isDeleted { get; set; } = false;
+
         public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     }

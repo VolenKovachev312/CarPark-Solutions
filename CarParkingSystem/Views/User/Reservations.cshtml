@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<ReservationViewModel>
+<link rel="stylesheet" href="~/css/User/reservations.css" />
 <h1>MY RESERVATIONS</h1>
 <div id="content-wrapper">
     <div id="card-wrapper">
-
+        @if(Model.Count()==0)
+        {
+            <h2>NO RESRVATIONS!</h2>
+        }
         @foreach (var booking in Model.OrderBy(r => r.CheckInTime))
         {
             <div id="card">
@@ -14,6 +18,7 @@
                         Arrival: @booking.CheckInTime <br>
                         Check-out: @booking.CheckOutTime
                     </p>
+                    <p>@booking.LicensePlateNumber</p>
                     @if(booking.IsCancelled)
                     {
                         <p id="cancelled">Canceled</p>
@@ -45,71 +50,3 @@
     </div>
 </div>
 
-<style>
-    h1{
-        text-align:center;
-        margin-top:16px;
-        font-weight:bold;
-        color:coral
-    }
-    div#content-wrapper{
-        display:flex;
-        justify-content:center;
-    }
-    div#one-line-container{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-    h2{
-        font-weight:bold;
-    }
-    div#card{
-        display:flex;
-        height:25vh;
-        border:solid 1px black;
-        width:100%;
-    }
-    div#description{
-        width:100%;
-        padding:16px;
-    }
-    img{
-        width:320px;
-    }
-    p{
-        margin-top:0px;
-        margin-bottom:0px;
-    }
-    div#card-wrapper{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        height:calc(100vh - 200px);
-        overflow:hidden;
-        overflow-y:scroll;
-        width:50vw;
-        gap:16px;
-        padding:16px;
-    }
-    button#cancel{
-        border:solid 1px red;
-        border-radius:32px;
-        background-color:red;
-        color:white;
-        padding: 2px 24px;
-        align-self:end;
-    }
-    button#cancel:hover{
-            border: solid 1px darkred;
-            background-color: darkred;
-    }
-    p#active{
-        color:forestgreen;
-        font-weight:bold;
-    }
-    p#cancelled{
-        color:red;
-        font-weight:bold;
-    }
-</style>

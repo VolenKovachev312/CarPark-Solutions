@@ -1,46 +1,40 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static CarParkingSystem.Constants.Constants.ParkingLot;
+using static CarParkingSystem.Constants.Constants.ErrorMessage;
 namespace CarParkingSystem.Models
 {
     public class ParkingLotViewModel
     {
-        //[Required]
-        //[StringLength(CountryLengthMax,MinimumLength = CountryLengthMin)]
-        //public string Country { get; set; }
-
-        //[StringLength(StateLengthMax, MinimumLength = StateLengthMin)]
-        //public string? State { get; set; }
-
-        //[Required]
-        //[StringLength(CityLengthMax, MinimumLength=CityLengthMin)]
-        //public string City { get; set; }
+        [Required]
         public Guid Id { get; set; }
 
         [Required]
-        [StringLength(LocationLengthMax,MinimumLength =4,ErrorMessage ="Name must be at least 4 characters long!")]
+        [StringLength(LocationLengthMax,MinimumLength =LocationLengthMin,ErrorMessage ="Name must be at least 2 characters long!")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Required!")]
+        [Required(ErrorMessage =RequiredErrorMessage)]
         public int Capacity { get; set; }
 
         public int AvailableSpaces { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [Range(LatitudeMin, LatitudeMax, ErrorMessage ="Invalid latitude value! Must be between -90 and 90!")]
         public decimal Latitude { get; set; }
 
-        [Required] 
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [Range(LongitudeMin, LongitudeMax, ErrorMessage = "Invalid longitude value! Must be between -180 and 180!")]
         public decimal Longitude { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         public TimeOnly OpeningHour { get; set; }
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         public TimeOnly ClosingHour { get; set; }
         [Required]
         public bool IsNonStop { get; set; }
-        [Required]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         [Url]
         public string ImageUrl { get; set; }
 

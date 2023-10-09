@@ -1,0 +1,44 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+.deleteaccount {
+    margin-bottom: 20px;
+}
+
+.message-success {
+    color: lawngreen;
+}
+
+.message-error {
+    color: red;
+}
+
+.btn-changePassword {
+    align-self: center;
+}
+/*button{
+        width:30%;
+    }*/
+.form-outline {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.col-xl-6 {
+    width: 100% !important;
+    align-items: center;
+}
+
+.passwordChange {
+    flex-direction: column;
+    align-items: start;
+}
+
+.carinfo, .email {
+    flex-direction: column;
+}
+
+.passwordChange > button {
+    align-self: center;
+}
+

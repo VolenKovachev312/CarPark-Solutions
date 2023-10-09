@@ -14,12 +14,12 @@ namespace CarParkingSystem.Data.Models
 
         [Required]
         [Range(LatitudeMin,LatitudeMax)]
-        [Column(TypeName ="decimal(18,9)")]
+        [Column(TypeName ="decimal(28,24)")]
         public decimal Latitude { get; set; }
 
         [Required]
         [Range(LongitudeMin,LongitudeMax)]
-        [Column(TypeName = "decimal(18,9)")]
+        [Column(TypeName = "decimal(28,24)")]
         public decimal Longitude { get;set; }
 
         [Required]
