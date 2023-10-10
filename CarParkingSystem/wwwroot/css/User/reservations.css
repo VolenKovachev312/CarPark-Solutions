@@ -33,7 +33,7 @@ div#description {
     padding: 16px;
 }
 
-img {
+#card > img {
     width: 320px;
 }
 

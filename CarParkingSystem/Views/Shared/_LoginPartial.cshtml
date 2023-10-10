@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-<link rel="stylesheet" href="~/css/locations.css" />
+<link rel="stylesheet" href="~/css/Shared/loginpartioal.css"/>
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -15,13 +15,26 @@
                 <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Page</a>
             </li>
         }
-        <li class="nav-item">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            
+        }
+        <li class="nav-item hamburger-element">
+            <a class="nav-link" asp-controller="User" asp-action="Account">Account</a>
+        </li>
+        <li class="nav-item hamburger-element">
+            <a class="nav-link" asp-controller="User" asp-action="Reservations">Reservations</a>
+        </li>
+        <li class="nav-item hamburger-element">
+            <a class="nav-link" asp-controller="User" asp-action="Logout">Logout</a>
+        </li>
+        <li class="nav-item" id="dropdown-li">
 
-            <div class="dropdown" style="margin-right:100px;">
+            <div class="dropdown" >
                 <button class="" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="~/icons8-account-48.png" style="width:34px; height:34px;">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
 
                     <form class="form-inline" asp-area="" asp-controller="User" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)">
                         <center> <button type="submit" class="nav-link btn btn-link text-dark">Account</button></center>
@@ -40,26 +53,15 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
+        </li>
     }
 </ul>
-<style>
-    body > header > nav > div > div > ul > li > a.nav-link {
-        color: white !important;
-        font-family: 'Roboto Condensed';
-    }
-    li.nav-item{
-        margin-right:20px;
-        font-size:1em;
-    }
-    button {
-        background-color: transparent;
-        border: 0px;
-    }
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/Shared/loginpartial.js"></script>
 
-</style>

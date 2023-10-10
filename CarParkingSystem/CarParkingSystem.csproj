@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\" />
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\js\Shared\" />
   </ItemGroup>
 
 </Project>

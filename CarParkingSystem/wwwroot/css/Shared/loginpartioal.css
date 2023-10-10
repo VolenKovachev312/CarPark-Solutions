@@ -1,0 +1,19 @@
+﻿
+.hamburger-element {
+    display: none;
+}
+
+body > header > nav > div > div > ul > li > a.nav-link {
+    color: white !important;
+    font-family: 'Roboto Condensed';
+}
+
+li.nav-item {
+    font-size: 1em;
+}
+
+button {
+    background-color: transparent;
+    border: 0px;
+}
+

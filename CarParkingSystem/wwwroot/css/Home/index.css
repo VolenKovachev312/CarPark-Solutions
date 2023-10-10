@@ -60,17 +60,18 @@ div#location-input {
     padding: 20px;
 }
 .stats {
-    height: 30vh;
+    height: 25vh;
     background-color: #242323;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
     .stats > p {
-        font-size: 3rem;
+        font-size: 4vw;
         color: coral;
         font-weight: 700;
+        margin-bottom:0px;
     }
 
 .info {
@@ -90,19 +91,18 @@ div#location-input {
 .description {
     display: flex;
     margin-top: 50px;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
     .description > p {
         color: #343538;
-        font-size: 1.8rem;
+        font-size: 2vw;
         width: 50%;
-        align-self: start;
         font-weight: 300;
     }
 
     .description > img {
-        width: 30%;
+        width: 40vw;
         object-fit: contain;
     }
 
@@ -113,11 +113,62 @@ div#location-input {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    height: 600px;
+    min-height: 600px;
     width: 100%;
     padding-left: 200px;
+    padding-bottom:2em;
 }
+@media(max-width:1305px) {
+    .hero{
+        padding-left:32px;
+    }
+}
+@media(max-width:768px){
+    .description{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+    .description>p{
+        font-size:3vw;
+        width:100%;
+    }
+    .description>img{
+        width:100%;
+    }
+    .stats{
+        flex-direction:column;
+        padding-left:32px;
+        height:20vh;
+    }
+    .stats>p{
+        font-size:6vw;
+    }
+}
+@media(max-width:576px) {
+    div.info{
+        padding:32px;
+    }
+    div.info>h2{
+        font-size:4em;
+    }
+    .description{
+        margin-top:16px;
+    }
+        .description > p {
+            margin-bottom:32px;
+            font-size:4vw;
+        }
 
+        .description > img {
+            width: 100%;
+        }
+}
+@media(max-width:375px){
+    div.info{
+        font-size: 3.5vw;
+    }
+}
 div.hero > h1 {
     padding-top: 100px;
     color: white;
@@ -129,6 +180,19 @@ div.hero > h2 {
     color: white;
     font-family: 'Roboto Condensed';
     font-size: 2.5rem;
+}
+@media(max-width:450px){
+    div.hero>h1{
+        font-size:13vw;
+    }
+    div.hero > h2 {
+        font-size:8vw;
+    }
+    div.hero{
+        padding-left:4px;
+        text-align:center;
+    }
+
 }
 
 body > div > a {
