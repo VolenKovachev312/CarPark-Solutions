@@ -1,5 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-div#info-logged {
+﻿div#info-logged {
     background-color: lightgray;
     padding: 16px;
 }
@@ -12,7 +11,9 @@ div#info-logged > h3 {
     margin-top: 0px;
     font-size: 1.5em;
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
 p#open {
     color: forestgreen;
 }
@@ -56,9 +57,9 @@ div#reservation-info {
 }
 
 div#not-logged-in {
-    padding: 8px 16px;
+    padding: 8px 0px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 16px;
     color: coral;
     font-weight: bold;
@@ -68,7 +69,7 @@ div#not-logged-in {
 }
 
     div#not-logged-in > a, button#submit {
-        font-size: 1.5em;
+        font-size:1.5em;
         color: white;
         text-decoration: none;
         border: 1px solid coral;
@@ -106,6 +107,7 @@ div#page-wrapper {
     display: flex;
     justify-content: end;
     gap: 32px;
+    height:calc(100vh - 124px)
 }
 
 div#info-form {
@@ -146,3 +148,38 @@ input#form3Example3cg::placeholder {
     color: lightgray
 }
 
+@media(max-width:1025px){
+    div#reservation-info {
+        width: 50%;
+    }
+    div#info-form{
+        width:50%; 
+        padding-left:16px;
+    }
+}
+@media(max-width:816px){
+    div#not-logged-in{
+        flex-direction:column;
+    }
+}
+@media(max-width:768px) {
+    div#page-wrapper{
+        flex-direction:column;
+        height:auto;
+    }
+    div#info-form{
+        width:100%;
+    }
+    div#reservation-info{
+        width:100%;
+        padding-bottom:16px;
+    }
+    div#not-logged-in {
+        flex-direction: row;
+    }
+}
+@media(max-width:375px){
+    div#not-logged-in {
+        flex-direction: column;
+    }
+}

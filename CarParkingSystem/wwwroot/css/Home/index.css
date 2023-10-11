@@ -1,9 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-
-html {
-    font-family: 'Roboto Condensed';
-}
-input {
+﻿input {
     border-radius: 32px !important;
 }
 
@@ -12,7 +7,9 @@ div#search-bar {
     flex-direction: row;
     gap: 1em;
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
 button#search {
     background-color: #343538;
     padding: 6px 24px;
@@ -68,7 +65,7 @@ div#location-input {
 }
 
     .stats > p {
-        font-size: 4vw;
+        font-size: 3.5vw;
         color: coral;
         font-weight: 700;
         margin-bottom:0px;
@@ -78,7 +75,6 @@ div#location-input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Roboto Condensed';
     padding: 60px 80px;
     background-color:ghostwhite;
 }
@@ -138,7 +134,7 @@ div#location-input {
     }
     .stats{
         flex-direction:column;
-        padding-left:32px;
+        padding-left:0px;
         height:20vh;
     }
     .stats>p{
@@ -172,13 +168,11 @@ div#location-input {
 div.hero > h1 {
     padding-top: 100px;
     color: white;
-    font-family: 'Roboto Condensed';
     font-size: 7.5rem;
 }
 
 div.hero > h2 {
     color: white;
-    font-family: 'Roboto Condensed';
     font-size: 2.5rem;
 }
 @media(max-width:450px){
@@ -199,7 +193,6 @@ body > div > a {
     margin-top: 50px;
     display: inline-block;
     text-decoration: none;
-    font-family: 'Roboto Condensed';
     font-size: 1.5rem;
     color: white;
     border: 2px solid white;

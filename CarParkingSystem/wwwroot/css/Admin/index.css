@@ -1,4 +1,6 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+﻿body {
+    font-family: 'Roboto Condensed';
+}
 a:hover {
     color: white;
 }
@@ -38,6 +40,8 @@ div#control-page {
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 40%;
+    margin-top: 20px;
 }
 
 button#edit {
@@ -45,7 +49,7 @@ button#edit {
     background-color: #343538;
     color: white;
     margin-top: 20px;
-    font-size: 1.5em;
+    font-size: 1em;
     padding: 4px 16px;
 }
 
@@ -63,11 +67,6 @@ button#search-button, button#user-button {
 
 button#user-button {
     width: 40%;
-}
-
-div#control-page {
-    width: 30%;
-    margin-top: 20px;
 }
 
 h2 {
@@ -102,7 +101,7 @@ div.card-content {
 div.card-wrapper {
     margin-bottom: 20px;
     margin-top: 20px;
-    padding-left: 10px;
+    padding-left: 16px;
 }
 
 #locations > div > div > img {
@@ -112,7 +111,8 @@ div.card-wrapper {
 
 div#page {
     display: flex;
-    gap: 10%;
+    justify-content:space-evenly;
+    height: calc(100vh - 130px);
 }
 
 div#locations {
@@ -126,5 +126,22 @@ div.card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+@media(max-width:768px){
+    div#page{
+        flex-direction:column-reverse;
+
+    }
+    div#locations{
+        width:100%;
+        height:50vh;
+    }
+    div#control-page{
+        width:100%;
+        padding:16px;
+    }
+    h1#control-page-title{
+        margin: 16px 0px;
+    }
 }
 

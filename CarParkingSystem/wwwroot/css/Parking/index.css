@@ -1,9 +1,9 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@300;400;700&family=Work+Sans:wght@600&display=swap');
-
-html {
+﻿html {
     height: 100vh;
 }
-
+div#location-wrapper{
+    width:500px;
+}
 img#marker-image {
     margin-bottom: 8px;
 }
@@ -29,6 +29,7 @@ div#location-list {
 p, h2 {
     margin-bottom: 0;
     text-align: start;
+
 }
 
 hr {
@@ -36,11 +37,10 @@ hr {
 }
 
 div#location-list {
-    margin-top: 40px;
+    padding:8px;
 }
 
 div#card-container {
-    font-family: 'Roboto Condensed';
     width: 100%;
     margin-bottom: 10px;
 }
@@ -57,7 +57,7 @@ div#content-wrapper {
 
 div#map {
     height: 100%;
-    width: 70%;
+    width:100%;
     border-left: 1px solid #343538;
 }
 
@@ -76,8 +76,6 @@ button#near-me {
 }
 
 div#location-input {
-    width: 30%;
-    height: 200px;
     text-align: center;
     padding: 16px;
     border-bottom: 1px solid gray;
@@ -86,7 +84,6 @@ div#location-input {
 
 label.form-label {
     font-size: 2em;
-    font-family: 'Roboto Condensed';
 }
 
 input {
@@ -120,7 +117,9 @@ div#info-window {
     justify-content: start;
     width: 14em;
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
     div#info-window > h2 {
         font-size: 16px;
     }
@@ -128,3 +127,22 @@ div#info-window {
     div#info-window > p {
         margin-bottom: 0.5em;
     }
+@media(max-width:1265px){
+    label.form-label {
+        font-size: 1.5em;
+    }
+}
+@media(max-width:768px){
+    #content-wrapper{
+        flex-direction:column;
+    }
+    div#map{
+        width:100%;
+    }
+    div#location-list{
+        height:30vh;
+    }
+    div#location-wrapper{
+        width:100%;
+    }
+}

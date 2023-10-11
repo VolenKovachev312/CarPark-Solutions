@@ -1,4 +1,6 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+﻿body {
+    font-family: 'Roboto Condensed';
+}
 p#user {
     font-weight: bold;
 }
@@ -20,7 +22,6 @@ h2 {
 
 div#card {
     display: flex;
-    height: 25vh;
     border: solid 1px black;
     width: 100%;
 }
@@ -30,8 +31,9 @@ div#description {
     padding: 16px;
 }
 
-img {
-    width: 320px;
+div#card>img {
+    width: 30%;
+    object-fit:cover;
 }
 
 p {
@@ -46,9 +48,8 @@ div#card-wrapper {
     height: calc(100vh - 124px);
     overflow: hidden;
     overflow-y: auto;
-    width: 70vw;
     gap: 16px;
-    padding: 16px;
+    padding: 32px;
 }
 
 button#cancel {
@@ -74,4 +75,12 @@ p#cancelled {
     color: red;
     font-weight: bold;
 }
+@media(max-width:567px) {
+    div#card > img {
+        display: none;
+    }
 
+    div#card-wrapper {
+        padding: 16px;
+    }
+}

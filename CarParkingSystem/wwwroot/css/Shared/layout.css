@@ -19,7 +19,9 @@ body > header > nav > div > div > ul > li > a {
 }
 
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
 .navbar-nav {
     gap: 16px;
 }
@@ -28,10 +30,7 @@ footer.footer.text-muted > div.container {
     color: white;
 }
 
-body {
-    font-family: 'Roboto Condensed' !important;
-}
-
+    
 nav {
     background-color: #343538;
 }
@@ -69,4 +68,8 @@ body > header > nav > div > div {
 body > footer {
     background-color: #343538;
 }
-
+@media(max-width:293px){
+    nav > div > a.navbar-brand {
+        font-size: 1.5em;
+    }
+}

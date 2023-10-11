@@ -159,11 +159,13 @@
 </form>
 
 <script>
+    
     $('input[name="dates"]').daterangepicker({
         timePicker: true,
         timePicker24Hour: true,
         autoUpdateInput: false,
         timePickerIncrement: 30,
+        drops:'up',
         locale: {
             cancelLabel: 'Clear',
             format: 'YYYY/DD/M hh:mm A'

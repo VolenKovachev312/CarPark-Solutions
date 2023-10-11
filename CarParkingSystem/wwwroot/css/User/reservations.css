@@ -1,11 +1,15 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-h1 {
+﻿h1 {
     text-align: center;
-    margin-top: 16px;
+    font-size:3em;
+    padding:8px;
     font-weight: bold;
-    color: coral
+    color: coral;
+    border-bottom: solid 1px black;
+    margin-bottom:0px;  
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
 div#content-wrapper {
     display: flex;
     justify-content: center;
@@ -23,18 +27,18 @@ h2 {
 
 div#card {
     display: flex;
-    height: 25vh;
     border: solid 1px black;
     width: 100%;
 }
 
 div#description {
-    width: 100%;
+    width: 75%;
     padding: 16px;
 }
 
 #card > img {
-    width: 320px;
+    width: 25%;
+    object-fit:cover;
 }
 
 p {
@@ -49,7 +53,7 @@ div#card-wrapper {
     height: calc(100vh - 200px);
     overflow: hidden;
     overflow-y: auto;
-    width: 50vw;
+    min-width: 50vw;
     gap: 16px;
     padding: 16px;
 }
@@ -77,4 +81,18 @@ p#cancelled {
     color: red;
     font-weight: bold;
 }
-
+@media(max-width:768px){
+    div#card{
+        flex-direction:column;
+        font-size:4vw;
+    }
+    div#card>img{
+        width:100%;
+    }
+    
+}
+@media(max-width:375px){
+    h1{
+        font-size:2em;
+    }
+}

@@ -1,4 +1,6 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+﻿body {
+    font-family: 'Roboto Condensed';
+}
 div#user-info {
     margin-top: 16px;
     padding: 32px;
@@ -31,7 +33,6 @@ h2 {
 
 div#card {
     display: flex;
-    height: 25vh;
     border: solid 1px black;
     width: 100%;
 }
@@ -41,8 +42,9 @@ div#description {
     padding: 16px;
 }
 
-img {
-    width: 320px;
+div#card>img {
+    width: 35%;
+    object-fit:cover;
 }
 
 p {
@@ -85,4 +87,20 @@ p#cancelled {
     color: red;
     font-weight: bold;
 }
-
+@media(max-width:768px){
+    div#content-wrapper{
+        flex-direction:column;
+    }
+    div#user-wrapper{
+        padding:16px;
+        text-align:center;
+    }
+    div#card-wrapper{
+        width:100%;
+    }
+}
+@media(max-width:641px){
+    div#card>img{
+        display:none;
+    }
+}

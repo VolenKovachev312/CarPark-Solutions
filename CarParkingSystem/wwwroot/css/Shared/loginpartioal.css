@@ -5,9 +5,10 @@
 
 body > header > nav > div > div > ul > li > a.nav-link {
     color: white !important;
+}
+body {
     font-family: 'Roboto Condensed';
 }
-
 li.nav-item {
     font-size: 1em;
 }

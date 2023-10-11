@@ -68,6 +68,10 @@
         }
         public async Task<UserViewModel> GetUserReservationsAsync(string searchQuery)
         {
+            if(string.IsNullOrEmpty(searchQuery))
+            {
+                throw new ArgumentException("Empty input!");
+            }
             searchQuery = searchQuery.ToLower();
             var user = await context.Users.Include(u => u.Reservations).ThenInclude(r => r.ParkingLot).FirstOrDefaultAsync(u => u.Email.ToLower() == searchQuery || u.LicensePlateNumber.ToLower() == searchQuery || u.PhoneNumber == searchQuery);
             var reservations = user.Reservations.ToList();

@@ -1,12 +1,13 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-.deleteaccount {
+﻿.deleteaccount {
     margin-bottom: 20px;
 }
 
 .message-success {
     color: lawngreen;
 }
-
+body {
+    font-family: 'Roboto Condensed';
+}
 .message-error {
     color: red;
 }
@@ -14,9 +15,6 @@
 .btn-changePassword {
     align-self: center;
 }
-/*button{
-        width:30%;
-    }*/
 .form-outline {
     display: flex;
     justify-content: space-between;
