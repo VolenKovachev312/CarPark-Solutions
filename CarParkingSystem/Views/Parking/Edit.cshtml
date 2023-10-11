@@ -47,12 +47,12 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Starting Hour</label>
-                <input class="form-control" type="time" asp-for="@Model.OpeningHour" id="opening-time" value="10:00:00" onchange="onTimeChange(this)" />
+                <input class="form-control" type="time" asp-for="@Model.OpeningHour" id="opening-time" onchange="onTimeChange(this)" />
                 <span asp-validation-for="@Model.OpeningHour" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Closing Hour</label>
-                <input class="form-control" type="time" asp-for="@Model.ClosingHour" id="closing-time" value="10:00:00" onchange="onTimeChange(this)" />
+                <input class="form-control" type="time" asp-for="@Model.ClosingHour" id="closing-time" onchange="onTimeChange(this)" />
                 <span asp-validation-for="@Model.ClosingHour" class="text-danger"></span>
             </div>
             <div class="form-check form-switch">
