@@ -92,7 +92,8 @@ namespace CarParkingSystem.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("EditError", e.Message);
+                TempData["Error"] = e.Message;
+                return View(model);
             }
             return RedirectToAction("Index","Admin");
         }

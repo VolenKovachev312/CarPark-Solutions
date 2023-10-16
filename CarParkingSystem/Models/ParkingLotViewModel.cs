@@ -44,5 +44,6 @@ namespace CarParkingSystem.Models
 
         [Required]
         public bool IsDeleted { get; set; }
+
     }
 }

@@ -54,10 +54,7 @@ namespace CarParkingSystem.Data.Models
 
         [Required]
         public bool IsDeleted { get; set; }
-        //Concurrency check
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
+        
         public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

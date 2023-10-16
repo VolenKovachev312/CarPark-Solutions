@@ -171,7 +171,6 @@ namespace CarParkingSystem.Test.Tests
                     OpeningHour=new TimeOnly(10,0,0),
                     ClosingHour=new TimeOnly(18,0,0),
                     IsNonStop=false,
-                    RowVersion=Array.Empty<byte>()
                 },
                 new ParkingLot()
                 {
@@ -186,7 +185,6 @@ namespace CarParkingSystem.Test.Tests
                     OpeningHour=new TimeOnly(10,0,0),
                     ClosingHour=new TimeOnly(18,0,0),
                     IsNonStop=true,
-                    RowVersion=Array.Empty<byte>()
                 },
             };
             context.ParkingLots.AddRange(parkingLots);

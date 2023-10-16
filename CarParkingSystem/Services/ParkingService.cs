@@ -71,6 +71,7 @@ namespace CarParkingSystem.Services
             parkingLot.IsDeleted = model.IsDeleted;
             parkingLot.HourlyRate = model.HourlyRate;
             
+            await context.SaveChangesAsync();
         }
 
         public async Task<ParkingLotViewModel> GetParkingLotAsync(string nameToEdit)
