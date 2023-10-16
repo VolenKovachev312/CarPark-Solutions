@@ -69,82 +69,38 @@ namespace CarParkingSystem.Services
             parkingLot.IsNonStop = model.IsNonStop;
             parkingLot.ImageUrl = model.ImageUrl;
             parkingLot.IsDeleted = model.IsDeleted;
-            var saved = false;
-            while (!saved)
-            {
-                try
-                {
-                    // Attempt to save changes to the database
-                    await context.SaveChangesAsync();
-                    saved = true;
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is ParkingLot)
-                        {
-                            var proposedValues = entry.CurrentValues;
-                            var databaseValues = entry.GetDatabaseValues();
-
-                            foreach (var property in proposedValues.Properties)
-                            {
-                                var proposedValue = proposedValues[property];
-                                var databaseValue = databaseValues[property];
-
-                                // TODO: decide which value should be written to database
-                                // proposedValues[property] = <value to be saved>;
-                            }
-
-                            // Refresh original values to bypass next concurrency check
-                            entry.OriginalValues.SetValues(databaseValues);
-                        }
-                        else
-                        {
-                            throw new NotSupportedException(
-                                "Don't know how to handle concurrency conflicts for "
-                                + entry.Metadata.Name);
-                        }
-                    }
-                }
-            }
+            parkingLot.HourlyRate = model.HourlyRate;
             
         }
 
         public async Task<ParkingLotViewModel> GetParkingLotAsync(string nameToEdit)
         {
             var parkingLot = await context.ParkingLots.FirstOrDefaultAsync(p => p.Name.ToLower() == nameToEdit.ToLower());
-            try
+            if (parkingLot == null)
             {
-                if(parkingLot.IsDeleted)
-                {
-                    throw new ArgumentException();
-                }
-                var parkingLotViewModel = new ParkingLotViewModel()
-                {
-                    Id = parkingLot.Id,
-                    Address = parkingLot.Address,
-                    AvailableSpaces = parkingLot.AvailableSpaces,
-                    Capacity = parkingLot.Capacity,
-                    ClosingHour = parkingLot.ClosingHour,
-                    HourlyRate = parkingLot.HourlyRate,
-                    ImageUrl = parkingLot.ImageUrl,
-                    IsNonStop = parkingLot.IsNonStop,
-                    Latitude = parkingLot.Latitude,
-                    Longitude = parkingLot.Longitude,
-                    Name = parkingLot.Name,
-                    OpeningHour = parkingLot.OpeningHour,
-                    IsDeleted= parkingLot.IsDeleted
-                };
-                return parkingLotViewModel;
-
-            }
-            catch (Exception ae)
-            {
-
                 throw new ArgumentException($"Parking Lot with name {nameToEdit} does not exist.");
             }
-           
+            if (parkingLot.IsDeleted)
+            {
+                throw new ArgumentException();
+            }
+            var parkingLotViewModel = new ParkingLotViewModel()
+            {
+                Id = parkingLot.Id,
+                Address = parkingLot.Address,
+                AvailableSpaces = parkingLot.AvailableSpaces,
+                Capacity = parkingLot.Capacity,
+                ClosingHour = parkingLot.ClosingHour,
+                HourlyRate = parkingLot.HourlyRate,
+                ImageUrl = parkingLot.ImageUrl,
+                IsNonStop = parkingLot.IsNonStop,
+                Latitude = parkingLot.Latitude,
+                Longitude = parkingLot.Longitude,
+                Name = parkingLot.Name,
+                OpeningHour = parkingLot.OpeningHour,
+                IsDeleted = parkingLot.IsDeleted
+            };
+            return parkingLotViewModel;
         }
 
         public async Task<IEnumerable<ParkingLotViewModel>> LoadParkingLotsAsync()

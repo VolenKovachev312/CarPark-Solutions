@@ -74,6 +74,10 @@
             }
             searchQuery = searchQuery.ToLower();
             var user = await context.Users.Include(u => u.Reservations).ThenInclude(r => r.ParkingLot).FirstOrDefaultAsync(u => u.Email.ToLower() == searchQuery || u.LicensePlateNumber.ToLower() == searchQuery || u.PhoneNumber == searchQuery);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found!");
+            }
             var reservations = user.Reservations.ToList();
             var userViewModel =await GetUserViewModelAsync(user.Id.ToString());
             userViewModel.Reservations = reservations.Select(r => new ReservationViewModel

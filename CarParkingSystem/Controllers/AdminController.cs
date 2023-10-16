@@ -48,7 +48,7 @@ namespace CarParkingSystem.Controllers
             IEnumerable<ReservationViewModel> reservations = new List<ReservationViewModel>();
             try
             {
-                reservations = await reservationService.GetReservationsByIdAsync(parkingId);
+                reservations = await reservationService.GetReservationsByParkingIdAsync(parkingId);
             }
             catch (Exception)
             {
@@ -65,9 +65,9 @@ namespace CarParkingSystem.Controllers
             {
                 userViewModel = await userService.GetUserReservationsAsync(searchQuery);
             }
-            catch (Exception)
+            catch (ArgumentException ae)
             {
-                TempData["Error"] = "User not found!";
+                TempData["Error"] = ae.Message;
                 return RedirectToAction("Index", "Admin");
             }
             return View(userViewModel);

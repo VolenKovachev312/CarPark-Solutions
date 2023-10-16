@@ -8,7 +8,7 @@ namespace CarParkingSystem.Contracts
 
         Task CancelReservationAsync(string reservationId);
 
-        Task<IEnumerable<ReservationViewModel>> GetReservationsByIdAsync(string parkingId);
+        Task<IEnumerable<ReservationViewModel>> GetReservationsByParkingIdAsync(string parkingId);
 
         Task CreateReservationAsync(ReserveViewModel model);
 

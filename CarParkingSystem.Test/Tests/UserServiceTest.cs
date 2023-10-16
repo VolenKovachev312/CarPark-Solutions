@@ -101,56 +101,59 @@ namespace CarParkingSystem.Test.Tests
             Assert.NotNull(userViewModel);
             Assert.IsType<UserViewModel>(userViewModel);
             Assert.Equal(user.Id, userViewModel.Id);
+            Assert.Equal(user.FirstName,userViewModel.FirstName);
+            Assert.Equal(user.LastName,userViewModel.LastName);
+            Assert.Equal(user.Email,userViewModel.Email);
+            Assert.Equal(user.PhoneNumber, userViewModel.PhoneNumber);
+            Assert.Equal(user.LicensePlateNumber, userViewModel.LicensePlateNumber);
         }
 
-        //public async Task<UserViewModel> GetUserViewModelAsync(string userId)
-        //{
-        //    var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-        //    return new UserViewModel()
-        //    {
-        //        Id = user.Id,
-        //        Email = user.Email,
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName,
-        //        LicensePlateNumber = user.LicensePlateNumber,
-        //        PhoneNumber = user.PhoneNumber,
-        //    };
-        //}
-        //public async Task<UserViewModel> GetUserReservationsAsync(string searchQuery)
-        //{
-        //    if (string.IsNullOrEmpty(searchQuery))
-        //    {
-        //        throw new ArgumentException("Empty input!");
-        //    }
-        //    searchQuery = searchQuery.ToLower();
-        //    var user = await context.Users.Include(u => u.Reservations).ThenInclude(r => r.ParkingLot).FirstOrDefaultAsync(u => u.Email.ToLower() == searchQuery || u.LicensePlateNumber.ToLower() == searchQuery || u.PhoneNumber == searchQuery);
-        //    var reservations = user.Reservations.ToList();
-        //    var userViewModel = await GetUserViewModelAsync(user.Id.ToString());
-        //    userViewModel.Reservations = reservations.Select(r => new ReservationViewModel
-        //    {
-        //        Address = r.ParkingLot.Address,
-        //        CheckInTime = r.CheckInTime,
-        //        CheckOutTime = r.CheckOutTime,
-        //        ParkingName = r.ParkingLot.Name,
-        //        Price = r.Price,
-        //        ImageUrl = r.ParkingLot.ImageUrl,
-        //        IsCancelled = r.isCancelled,
-        //        ReservationId = r.Id,
-        //        LicensePlateNumber = r.LicensePlateNumber
-        //    }).ToList();
-        //    return userViewModel;
-        //}
+        [Fact]
+        public async Task GetUserReservationsShouldGetReservations()
+        {
+            var searchQuery = "testuser1@gmail.com";
 
-        //public async Task DeleteUserAsync(string userId)
-        //{
-        //    var user = await context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-        //    if (user == null)
-        //    {
-        //        throw new ArgumentException("Could not delete user!");
-        //    }
-        //    user.isDeleted = true;
-        //    await context.SaveChangesAsync();
-        //}
+            var user=await userService.GetUserReservationsAsync(searchQuery);
+
+            Assert.NotNull(user);
+            Assert.NotNull(user.Reservations);
+            Assert.True(user.Reservations.Count() == 2);
+            Assert.IsType<UserViewModel>(user);
+        }
+        [Fact]
+        public async Task GetUserReservationsShouldThrowWhenSearchQueryEmpty()
+        {
+            var searchQuery = "";
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.GetUserReservationsAsync(searchQuery));
+        }
+        [Fact]
+        public async Task GetUserReservationsShouldThrowWhenUserNotFound()
+        {
+            var searchQuery = "test";
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.GetUserReservationsAsync(searchQuery));
+        }
+
+        [Fact]
+        public async Task DeleteUserShouldSoftDelete()
+        {
+            var user = await context.Users.FirstOrDefaultAsync();
+            var userId = user.Id;
+            Assert.False(user.isDeleted == true);
+
+            await userService.DeleteUserAsync(userId.ToString());
+
+            Assert.True(user.isDeleted == true);
+        }
+        [Fact]
+        public async Task DeleteUserShouldThrow()
+        {
+            var userId = "";
+
+            await Assert.ThrowsAsync<ArgumentException>(async()=>await userService.DeleteUserAsync(userId.ToString()));
+        }
+        
         private void SeedDatabase() 
         {
             var parkingLots = new List<ParkingLot>()

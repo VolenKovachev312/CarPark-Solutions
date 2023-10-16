@@ -5,12 +5,12 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem", "CarParkingSystem\CarParkingSystem.csproj", "{EF428297-DB1C-45A0-A53C-4A57697C84FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystemAPI", "CarParkingSystemAPI\CarParkingSystemAPI.csproj", "{2B799F82-EFA0-42FC-9367-3C63DA626F3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem.API", "CarParkingSystemAPI\CarParkingSystem.API.csproj", "{2B799F82-EFA0-42FC-9367-3C63DA626F3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EF428297-DB1C-45A0-A53C-4A57697C84FF} = {EF428297-DB1C-45A0-A53C-4A57697C84FF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarParkingSystem.Test", "CarParkingSystem.Test\CarParkingSystem.Test.csproj", "{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem.Test", "CarParkingSystem.Test\CarParkingSystem.Test.csproj", "{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

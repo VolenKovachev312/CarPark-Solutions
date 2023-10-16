@@ -23,6 +23,15 @@ namespace CarParkingSystem.Services
         public async Task CreateReservationAsync(ReserveViewModel model)
         {
             var parkingLotViewModel = model.ParkingLotViewModel;
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == model.UserId);
+            if (user == null && context.Users.Any(u => u.Email == model.Email))
+            {
+                throw new ArgumentException("User with this email already exists!");
+            }
+            if (user == null && context.Users.Any(u => u.PhoneNumber == model.PhoneNumber))
+            {
+                throw new ArgumentException("User with this phone number already exists!");
+            }
             var reservation = new Reservation()
             {
                 UserId = model.UserId,
@@ -38,7 +47,7 @@ namespace CarParkingSystem.Services
             await context.Reservations.AddAsync(reservation);
             await context.SaveChangesAsync();
         }
-        public async Task<IEnumerable<ReservationViewModel>> GetReservationsByIdAsync(string parkingId)
+        public async Task<IEnumerable<ReservationViewModel>> GetReservationsByParkingIdAsync(string parkingId)
         {
             var reservations = await context.Reservations.Include(r => r.ParkingLot).Include(r=>r.User).Where(r => r.ParkingLotId.ToString()==parkingId).ToListAsync();
             return reservations.Select(r => new ReservationViewModel

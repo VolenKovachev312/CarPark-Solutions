@@ -5,6 +5,8 @@ using CarParkingSystem.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Web.Mvc;
 
 namespace CarParkingSystem
 {
@@ -22,15 +24,16 @@ namespace CarParkingSystem
 
             builder.Services
                 .AddAntiforgery()
-                .AddDefaultIdentity<User>(options => 
+                .AddDefaultIdentity<User>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase= false;
+                    options.Password.RequireUppercase = false;
                     options.Password.RequireDigit = false;
                 })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -38,22 +41,21 @@ namespace CarParkingSystem
             builder.Services.Configure<SecurityStampValidatorOptions>(options =>
             {
                 options.ValidationInterval = TimeSpan.FromMinutes(1);
+                
             });
-            //builder.Services.AddCors();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IParkingService, ParkingService>();
             builder.Services.AddScoped<IReservationService,ReservationService>();
 
             builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
-            
+
+            var cultureInfo = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
             var app = builder.Build();
-            //app.UseCors(x => x
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader()
-            //        .SetIsOriginAllowed(origin => true) // allow any origin
-            //        .WithOrigins("https://localhost:7232")); // Allow only this origin can also have multiple origins separated with comma
-                    //.AllowCredentials()); // allow credentials
+           
             AppBuilderExtensions.InitializeDatabase(app);
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -81,7 +83,7 @@ namespace CarParkingSystem
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
-
+            
             app.Run();
         }
     }
