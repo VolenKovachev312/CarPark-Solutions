@@ -173,11 +173,11 @@
     });
     
     $('input[name="dates"]').on('hide.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('DD/MM/YYYY hh:mm A') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm A'));
+        $(this).val(picker.startDate.format('MM/DD/YYYY hh:mm A') + ' - ' + picker.endDate.format('MM/DD/YYYY hh:mm A'));
         var checkin = document.getElementById('checkin');
         var checkout = document.getElementById('checkout');
-        checkin.value = picker.startDate.format('DD-MM-YYYY hh:mm A');
-        checkout.value = picker.endDate.format('DD-MM-YYYY hh:mm A');
+        checkin.value = picker.startDate.format('MM-DD-YYYY hh:mm A');
+        checkout.value = picker.endDate.format('MM-DD-YYYY hh:mm A');
         var dateStart = new Date(picker.startDate.format('MM-DD-YYYY hh:mm A'));
         var dateEnd = new Date(picker.endDate.format('MM-DD-YYYY hh:mm A'));
         var timeDiff = dateEnd.getTime() - dateStart.getTime();

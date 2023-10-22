@@ -2,8 +2,14 @@
 <link rel="stylesheet" href="~/css/Admin/parkingreservations.css" />
 <div id="content-wrapper">
     <div id="card-wrapper">
-
-        @foreach (var booking in Model.OrderBy(r => r.CheckInTime))
+        @if(Model.Count()==0)
+        {
+            <h1>THIS PARKING LOT HAS NO RESERVATIONS</h1>
+        }
+        else
+        {
+            
+        foreach (var booking in Model.OrderBy(r => r.CheckInTime))
         {
             <div id="card">
                 <img src="@booking.ImageUrl">
@@ -42,6 +48,7 @@
                     </div>
                 </div>
             </div>
+        }
         }
     </div>
 </div>

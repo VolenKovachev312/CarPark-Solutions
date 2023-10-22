@@ -5,12 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem", "CarParkingSystem\CarParkingSystem.csproj", "{EF428297-DB1C-45A0-A53C-4A57697C84FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem.API", "CarParkingSystemAPI\CarParkingSystem.API.csproj", "{2B799F82-EFA0-42FC-9367-3C63DA626F3D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EF428297-DB1C-45A0-A53C-4A57697C84FF} = {EF428297-DB1C-45A0-A53C-4A57697C84FF}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem.Test", "CarParkingSystem.Test\CarParkingSystem.Test.csproj", "{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarParkingSystem.API", "CarParkingSystem.API\CarParkingSystem.API.csproj", "{A7A760ED-B669-4304-B6CD-7A8625FA8B2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +19,14 @@ Global
 		{EF428297-DB1C-45A0-A53C-4A57697C84FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF428297-DB1C-45A0-A53C-4A57697C84FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF428297-DB1C-45A0-A53C-4A57697C84FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B799F82-EFA0-42FC-9367-3C63DA626F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B799F82-EFA0-42FC-9367-3C63DA626F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B799F82-EFA0-42FC-9367-3C63DA626F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B799F82-EFA0-42FC-9367-3C63DA626F3D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9074AF1-E347-4BEF-B82C-34FFB6AF4DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7A760ED-B669-4304-B6CD-7A8625FA8B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7A760ED-B669-4304-B6CD-7A8625FA8B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7A760ED-B669-4304-B6CD-7A8625FA8B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7A760ED-B669-4304-B6CD-7A8625FA8B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

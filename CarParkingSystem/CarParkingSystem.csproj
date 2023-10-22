@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-CarParkingSystem-dc5c9528-dcbd-4ca1-9fd4-b0d87b9955fe</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
