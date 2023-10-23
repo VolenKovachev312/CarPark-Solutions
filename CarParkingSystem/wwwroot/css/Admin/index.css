@@ -93,9 +93,7 @@ p {
 div.card-content {
     padding: 0;
     display: flex;
-    border-top: 1px solid #343538;
-    border-bottom: 1px solid #343538;
-    border-right: 1px solid #343538;
+    border: 1px solid #343538;
 }
 
 div.card-wrapper {

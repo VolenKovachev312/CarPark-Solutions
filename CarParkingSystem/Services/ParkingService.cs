@@ -3,8 +3,6 @@ using CarParkingSystem.Data;
 using CarParkingSystem.Data.Models;
 using CarParkingSystem.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Web.Mvc;
 
 namespace CarParkingSystem.Services
 {
