@@ -34,7 +34,7 @@ For the date and time selection i use the daterangepicker library.<br>
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/505aa559-c308-4a88-bec2-c723a39cc7e8)
 
 <h2>Admin Page</h2>
-In the Admin Page the admins can create new locations and also look at every parking location, edit them if necessary and check all the reservations made for them.<br>
+In the Admin Page the admins can create new locations, search for locations by name and also look at every parking location, edit them if necessary and check all the reservations made for them.<br>
 What is more, the admins can search up information about users, such as their name, their reservations, and other stats.<br>
 <br>
 
@@ -48,3 +48,23 @@ The Edit Parking page looks almost identical, but has the ability to soft delete
 <br>
 
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/b2253716-a6ff-409d-9069-a4efc6219fe3)
+
+<h2>Checking User Info</h2>
+This page is simillar to the user reservation history and parking lot reservations page so I'll not include them.<br><br>
+In this page we can see general info about the user, their reservation info and whether the reservation is canceled, active or completed.<br>
+The user who has made the reservations and the admin can both cancel them.<br>
+<br>
+
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/e6874fc9-ccba-4aaf-8312-9698216c4bc6)
+
+<h2>Account Page</h2>
+This is a basic page with the functionality to change info about your account and delete it if wanted.<br><br>
+Zoomed out to fit in the image<br>
+<br>
+
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/388b6fb0-7738-4259-a717-efa991505a7b)
+
+<h2>Login and Register</h2>
+
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/14da60e3-1340-466e-a346-8817d08e48a2)
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/49e2059e-c39c-4be4-bc39-921f318c3614)
