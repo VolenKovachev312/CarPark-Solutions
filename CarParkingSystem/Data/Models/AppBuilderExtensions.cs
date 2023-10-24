@@ -13,8 +13,11 @@ namespace CarParkingSystem.Data.Models
                 var data = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
                 data.Database.Migrate();
-                var parkingLots = CreateParkingLots();
-                data.ParkingLots.AddRange(parkingLots);
+                if(data.ParkingLots.Count()==0)
+                {
+                    var parkingLots = CreateParkingLots();
+                    data.ParkingLots.AddRange(parkingLots);
+                }
                 InitializeAccounts(testInitializeAccounts).Wait();
                 data.SaveChanges();
             }
