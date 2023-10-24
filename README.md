@@ -1,4 +1,4 @@
-# CarParkingSystem
+# CarPark Solutions
 Website for renting a parking space.
 
 <h2>Main Page</h2>
