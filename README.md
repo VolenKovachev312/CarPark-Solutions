@@ -10,7 +10,7 @@ The satisfied customers, cities and continents statistics are placeholder and ju
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d533860-92f2-4a46-bc90-5ba554a11f75)
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/95fa1ddb-ada5-4950-9d11-98c884d38b82)
 
-<h2>Reserve page</h2>
+<h2>Reserve Page</h2>
 In this page google api is used to show the map, put corresponding markers on all parking locations,<br>
 generate search autofill and request your location to find nearby parking locations.<br><br>
 Clicking on the "find parking near me" button asks for permission to use your location<br>
@@ -32,3 +32,9 @@ For the date and time selection i use the daterangepicker library.<br>
 
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/cf665b66-4cb7-4d35-8e60-cbd361fb3d03)
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/505aa559-c308-4a88-bec2-c723a39cc7e8)
+
+<h2>Admin Page</h2>
+In the Admin Page the admins can create new locations and also look at every parking location, edit them if necessary and check all the reservations made for them.<br>
+What is more, the admins can search up information about users, such as their name, their reservations, and other stats.<br>
+<br>
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d65f2bb-80b8-4266-9292-e31120adacc8)
