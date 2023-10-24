@@ -39,3 +39,12 @@ What is more, the admins can search up information about users, such as their na
 <br>
 
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d65f2bb-80b8-4266-9292-e31120adacc8)
+
+<h2>Creating a new parking lot</h2>
+In this page the admin fills out a form to create a new location.<br>
+The address and coordinates are fetched with the google maps api depending on where the admin clicks on the map.<br>
+The admin has the option the make the parking lot 24/7 Open which disables the working hours selection.<br><br>
+The Edit Parking page looks almost identical, but has the ability to soft delete the parking lot.<br>
+<br>
+
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/b2253716-a6ff-409d-9069-a4efc6219fe3)
