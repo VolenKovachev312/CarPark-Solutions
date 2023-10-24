@@ -7,7 +7,7 @@ For testing purposes there are "Demo Admin" and "Demo User" buttons for quick lo
 The satisfied customers, cities and continents statistics are placeholder and just used for the design.<br>
 <br>
 
-  ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d533860-92f2-4a46-bc90-5ba554a11f75)
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d533860-92f2-4a46-bc90-5ba554a11f75)
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/95fa1ddb-ada5-4950-9d11-98c884d38b82)
 
 <h2>Reserve page</h2>
@@ -21,3 +21,14 @@ Clicking on the map markers pops up a info menu with details about the clicked l
 
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/64e7953e-f562-45d7-823e-44e7dba597b6)
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/cdd3c96f-75d3-4b7a-ac1b-0dd25988588b)
+
+<h2>Confirming Reservation</h2>
+This page can be used as a logged user and as a non-logged user.<br><br>
+If a logged user makes a reservation, their info is autofilled and the reservation gets stored in their reservation history,<br>
+but if a non-logged user makes a reservation they can't access the reservation history page and need to manually fill out their information.<br><br>
+The payment info is not required.<br>
+For the date and time selection i use the daterangepicker library.<br>
+<br>
+
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/cf665b66-4cb7-4d35-8e60-cbd361fb3d03)
+![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/505aa559-c308-4a88-bec2-c723a39cc7e8)
