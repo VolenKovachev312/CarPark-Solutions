@@ -37,4 +37,5 @@ For the date and time selection i use the daterangepicker library.<br>
 In the Admin Page the admins can create new locations and also look at every parking location, edit them if necessary and check all the reservations made for them.<br>
 What is more, the admins can search up information about users, such as their name, their reservations, and other stats.<br>
 <br>
+
 ![image](https://github.com/VolenKovachev312/CarParkingSystem/assets/117029606/2d65f2bb-80b8-4266-9292-e31120adacc8)
