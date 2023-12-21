@@ -269,6 +269,10 @@ namespace CarParkingSystem.Controllers
             {
                 return RedirectToAction("Reservations", "User");
             }
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             return RedirectToAction("ParkingReservations", "Admin");
         }
     }
